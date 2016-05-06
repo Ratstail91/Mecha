@@ -1,5 +1,5 @@
 #include directories
-INCLUDES+=.
+INCLUDES+=. card_list
 
 #libraries
 #the order of the $(LIBS) is important, at least for MinGW
@@ -7,7 +7,7 @@ LIBS+=
 ifeq ($(OS),Windows_NT)
 	LIBS+=-lmingw32
 endif
-LIBS+=-lSDL2main -lSDL2
+LIBS+=-lSDL2main -lSDL2 -lSDL2_image
 
 #flags
 CXXFLAGS+=-std=c++11 $(addprefix -I,$(INCLUDES))

@@ -22,7 +22,9 @@
 #include "example_scene.hpp"
 
 ExampleScene::ExampleScene() {
-	//
+	textureLoader.Load(GetRenderer(), "rsc\\", "tower.png");
+	textureLoader.Load(GetRenderer(), "rsc\\", "mecha.png");
+	textureLoader.Load(GetRenderer(), "rsc\\", "command.png");
 }
 
 ExampleScene::~ExampleScene() {
