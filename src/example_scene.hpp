@@ -23,6 +23,7 @@
 
 #include "base_scene.hpp"
 
+#include "battlefield.hpp"
 #include "card_list.hpp"
 #include "card_shuffler.hpp"
 #include "card_sorter.hpp"
@@ -54,5 +55,11 @@ private:
 	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 
 	//members
-	//...
+	Battlefield battlefield;
+	TradingCard tmpCard;
+
+	struct Camera {
+		int x = 0, y = 0;
+		double zoom = 1.0;
+	}camera;
 };

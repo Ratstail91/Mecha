@@ -77,10 +77,6 @@ int TradingCard::GetDurability() const {
 //graphics
 //-------------------------
 
-void TradingCard::DrawTo(SDL_Renderer* const renderer) {
-	image.DrawTo(renderer, posX, posY);
-}
-
 int TradingCard::SetPosX(int i) {
 	return posX = i;
 }

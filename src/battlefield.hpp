@@ -21,67 +21,37 @@
 */
 #pragma once
 
-#include "image.hpp"
+#include "trading_card.hpp"
 
-class TradingCard {
+#include <array>
+
+class Battlefield {
 public:
-	enum Type {
-		BASIC_TOWER,
-		MECHA,
-		COMMAND,
-		TOWER,
-		MECHA_TOWER
-	};
+	Battlefield();
+	~Battlefield();
 
-	TradingCard() = default;
-	~TradingCard() = default;
+	void DrawTo(SDL_Renderer* const, int camX, int camY, double zoom);
 
-	//card components
-	std::string SetName(std::string name);
-	std::string GetName() const;
+	//interact with the field
+	TradingCard* PushCard(TradingCard* const, int x, int y);
+	TradingCard* FindCard(int x, int y);
+	TradingCard* PopCard(int x, int y);
 
-	Type SetType(Type t);
-	Type GetType() const;
+	//accessors & mutators
+	int SetX(int i);
+	int SetY(int i);
+	int SetCardW(int i);
+	int SetCardH(int i);
 
-	int SetCost(int i);
-	int GetCost() const;
-
-	std::string SetText(std::string text);
-	std::string GetText() const;
-
-	int SetPower(int i);
-	int GetPower() const;
-
-	int SetDurability(int i);
-	int GetDurability() const;
-
-	//graphics
-	int SetPosX(int i);
-	int GetPosX() const;
-
-	int SetPosY(int i);
-	int GetPosY() const;
-
-	Image* GetImage();
-
-	//linked list
-	TradingCard* SetNext(TradingCard* n);
-	TradingCard* GetNext();
+	int GetX() const;
+	int GetY() const;
+	int GetCardW() const;
+	int GetCardH() const;
 
 private:
-	//card components
-	std::string name;
-	Type type;
-	int cost = 0;
-	std::string text;
-	int power = 0;
-	int durability = 0;
-
-	//graphics
+	TradingCard*** fieldArray;
 	int posX = 0;
 	int posY = 0;
-	Image image;
-
-	//linked list
-	TradingCard* next = nullptr;
+	int cardW = 0;
+	int cardH = 0;
 };
