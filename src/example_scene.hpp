@@ -56,6 +56,7 @@ private:
 
 	//members
 	Battlefield battlefield;
+	Image backImage;
 	TradingCard tmpCard;
 
 	struct Camera {

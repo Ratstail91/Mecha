@@ -27,11 +27,14 @@ ExampleScene::ExampleScene() {
 	textureLoader.Load(GetRenderer(), "rsc\\", "tower.png");
 	textureLoader.Load(GetRenderer(), "rsc\\", "mecha.png");
 	textureLoader.Load(GetRenderer(), "rsc\\", "command.png");
-
-	tmpCard.GetImage()->SetTexture(textureLoader.Find("mecha.png"));
+	textureLoader.Load(GetRenderer(), "rsc\\", "back.png");
 
 	battlefield.SetCardW(100);
 	battlefield.SetCardH(100);
+
+	backImage.SetTexture(textureLoader.Find("back.png"));
+
+	tmpCard.GetImage()->SetTexture(textureLoader.Find("mecha.png"));
 }
 
 ExampleScene::~ExampleScene() {
@@ -55,6 +58,7 @@ void ExampleScene::FrameEnd() {
 }
 
 void ExampleScene::RenderFrame(SDL_Renderer* renderer) {
+	backImage.DrawTo(renderer, battlefield.GetX() - camera.x, battlefield.GetY() - camera.y, camera.zoom * 10.0/45.0, camera.zoom * 10.0/45.0);
 	battlefield.DrawTo(renderer, camera.x, camera.y, camera.zoom);
 }
 
@@ -115,8 +119,8 @@ void ExampleScene::MouseWheel(SDL_MouseWheelEvent const& event) {
 	}
 
 	//set min/max
-	if (camera.zoom < 0.25) {
-		camera.zoom = 0.25;
+	if (camera.zoom < 0.5) {
+		camera.zoom = 0.5;
 	}
 	if (camera.zoom > 3.0) {
 		camera.zoom = 3.0;
