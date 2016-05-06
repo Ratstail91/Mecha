@@ -1,9 +1,9 @@
 #include directories
-INCLUDES+=. card_list
+INCLUDES+=. card_list TurtleGUI utilities
 
 #libraries
 #the order of the $(LIBS) is important, at least for MinGW
-LIBS+=
+LIBS+=common.a libturtlegui.a
 ifeq ($(OS),Windows_NT)
 	LIBS+=-lmingw32
 endif
@@ -29,6 +29,9 @@ OUT=$(addprefix $(OUTDIR)/,mecha)
 
 #targets
 all: $(OBJ) $(OUT)
+	$(MAKE) -C card_list
+	$(MAKE) -C TurtleGUI INCLUDES+=. INCLUDES+=.. INCLUDES+=../utilities
+	$(MAKE) -C utilities
 	$(CXX) $(CXXFLAGS) -o $(OUT) $(OBJ) $(LIBS)
 
 $(OBJ): | $(OBJDIR)
