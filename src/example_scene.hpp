@@ -24,11 +24,14 @@
 #include "base_scene.hpp"
 
 #include "battlefield.hpp"
+#include "button.hpp"
 #include "card_list.hpp"
 #include "card_shuffler.hpp"
 #include "card_sorter.hpp"
 #include "texture_loader.hpp"
 #include "trading_card.hpp"
+
+#include "SDL2/SDL_ttf.h"
 
 class ExampleScene : public BaseScene {
 public:
@@ -58,6 +61,12 @@ private:
 	Battlefield battlefield;
 	Image backImage;
 	TradingCard tmpCard;
+
+	Button handOneButton;
+	Button handTwoButton;
+	Button hideButton;
+
+	TTF_Font* font = nullptr;
 
 	struct Camera {
 		int x = 0, y = 0;

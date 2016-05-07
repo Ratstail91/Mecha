@@ -140,7 +140,7 @@ SDL_Texture* Image::CopyTexture(SDL_Renderer* renderer, SDL_Texture* ptr) {
 	SDL_QueryTexture(ptr, nullptr, nullptr, &w, &h);
 
 	//create a texture of (w, h) size (also sets the metadata)
-	Create(renderer, w, h);
+	Create(renderer, w, h, {0, 0, 0, 0});
 
 	//copy the argument texture to the local texture
 	SDL_SetRenderTarget(renderer, texture);

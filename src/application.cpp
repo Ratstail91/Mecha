@@ -56,6 +56,13 @@ void Application::Init(int argc, char* argv[]) {
 
 	//set the hook for the renderer
 	BaseScene::SetRenderer(renderer);
+
+	//setting up SDL2_ttf
+	if (TTF_Init()) {
+		std::ostringstream msg;
+		msg << "Failed to initialize SDL_ttf 2.0: " << SDL_GetError();
+		throw(std::runtime_error(msg.str()));
+	}
 }
 
 void Application::Proc() {
@@ -109,6 +116,7 @@ void Application::Proc() {
 void Application::Quit() {
 	//clean up after the program
 	BaseScene::SetRenderer(nullptr);
+	TTF_Quit();
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 }

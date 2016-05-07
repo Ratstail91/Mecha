@@ -22,19 +22,43 @@
 #include "example_scene.hpp"
 
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 ExampleScene::ExampleScene() {
+	//load the resource files
 	textureLoader.Load(GetRenderer(), "rsc\\", "tower.png");
 	textureLoader.Load(GetRenderer(), "rsc\\", "mecha.png");
 	textureLoader.Load(GetRenderer(), "rsc\\", "command.png");
 	textureLoader.Load(GetRenderer(), "rsc\\", "back.png");
+	textureLoader.Load(GetRenderer(), "rsc\\", "button_blue.png");
+	textureLoader.Load(GetRenderer(), "rsc\\", "button_back_30.png");
 
+	font = TTF_OpenFont("rsc\\coolvetica rg.ttf", 12);
+
+	//check that the font loaded
+	if (!font) {
+		std::ostringstream msg;
+		msg << "Failed to load a font file; " << SDL_GetError();
+		throw(std::runtime_error(msg.str()));
+	}
+
+	//setup the members
 	battlefield.SetCardW(100);
 	battlefield.SetCardH(100);
 
 	backImage.SetTexture(textureLoader.Find("back.png"));
 
 	tmpCard.GetImage()->SetTexture(textureLoader.Find("mecha.png"));
+
+	//setup the buttons
+	handOneButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+	handTwoButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+	hideButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+
+	handOneButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player One");
+	handTwoButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player Two");
+	hideButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Hide");
 }
 
 ExampleScene::~ExampleScene() {
@@ -60,6 +84,17 @@ void ExampleScene::FrameEnd() {
 void ExampleScene::RenderFrame(SDL_Renderer* renderer) {
 	backImage.DrawTo(renderer, battlefield.GetX() - camera.x, battlefield.GetY() - camera.y, camera.zoom * 10.0/45.0, camera.zoom * 10.0/45.0);
 	battlefield.DrawTo(renderer, camera.x, camera.y, camera.zoom);
+
+	//adjust to any changes in screen size
+	int w, h;
+	SDL_GetRendererOutputSize(renderer, &w, &h);
+
+	handOneButton.SetX(w - 3 * handOneButton.GetImage()->GetClipW());
+	handOneButton.DrawTo(renderer);
+	handTwoButton.SetX(w - 2 * handTwoButton.GetImage()->GetClipW());
+	handTwoButton.DrawTo(renderer);
+	hideButton.SetX(w - 1 * hideButton.GetImage()->GetClipW());
+	hideButton.DrawTo(renderer);
 }
 
 //-------------------------
@@ -67,6 +102,10 @@ void ExampleScene::RenderFrame(SDL_Renderer* renderer) {
 //-------------------------
 
 void ExampleScene::MouseMotion(SDL_MouseMotionEvent const& event) {
+	handOneButton.MouseMotion(event);
+	handTwoButton.MouseMotion(event);
+	hideButton.MouseMotion(event);
+
 	if (event.state & SDL_BUTTON_RMASK) {
 		camera.x -= event.xrel;
 		camera.y -= event.yrel;
@@ -74,8 +113,13 @@ void ExampleScene::MouseMotion(SDL_MouseMotionEvent const& event) {
 }
 
 void ExampleScene::MouseButtonDown(SDL_MouseButtonEvent const& event) {
+	int b = 0;
+	b |= handOneButton.MouseButtonDown(event);
+	b |= handTwoButton.MouseButtonDown(event);
+	b |= hideButton.MouseButtonDown(event);
+
 	//left button control
-	if (event.button != SDL_BUTTON_LEFT) {
+	if (event.button != SDL_BUTTON_LEFT || b & Button::State::PRESSED) {
 		return;
 	}
 
@@ -107,7 +151,9 @@ void ExampleScene::MouseButtonDown(SDL_MouseButtonEvent const& event) {
 }
 
 void ExampleScene::MouseButtonUp(SDL_MouseButtonEvent const& event) {
-	//
+	handOneButton.MouseButtonUp(event);
+	handTwoButton.MouseButtonUp(event);
+	hideButton.MouseButtonUp(event);
 }
 
 void ExampleScene::MouseWheel(SDL_MouseWheelEvent const& event) {
