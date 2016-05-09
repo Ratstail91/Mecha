@@ -23,20 +23,19 @@
 
 #include "base_scene.hpp"
 
-#include "battlefield.hpp"
-#include "button.hpp"
 #include "card_list.hpp"
 #include "card_shuffler.hpp"
 #include "card_sorter.hpp"
+#include "csv_tool.hpp"
 #include "texture_loader.hpp"
 #include "trading_card.hpp"
 
 #include "SDL2/SDL_ttf.h"
 
-class ExampleScene : public BaseScene {
+class MockupScene : public BaseScene {
 public:
-	ExampleScene();
-	~ExampleScene();
+	MockupScene();
+	~MockupScene();
 
 	void RenderFrame(SDL_Renderer* renderer) override;
 
@@ -58,35 +57,12 @@ private:
 	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 
 	//members
-	Battlefield battlefield;
-	Image backImage;
-	TradingCard tmpCard;
+	typedef CardList<TradingCard, NullSorter<TradingCard>, CardShuffler<TradingCard>> CardList;
+	TTF_Font* headerFont = nullptr;
+	TTF_Font* textFont = nullptr;
 
-	typedef CardList<TradingCard, NullSorter<TradingCard>> TradingCardList;
+	CardList cardMasterList;
+	void RenderCard(TradingCard*);
 
-	TradingCardList playerOneHand;
-	TradingCardList playerTwoHand;
-
-	TradingCard* selection = nullptr;
-
-	//UI
-	Button handOneButton;
-	Button handTwoButton;
-	Button hideButton;
-
-	enum HandState {
-		PLAYER_ONE,
-		PLAYER_TWO,
-		HIDE
-	}handState = HandState::HIDE;
-
-	TTF_Font* font = nullptr;
-
-	struct Camera {
-		int x = 0, y = 0;
-		double zoom = 1.0;
-	}camera;
-
-	//utility methods
-	void RenderHand(SDL_Renderer* const, TradingCardList* hand);
+	int selection = 24;
 };

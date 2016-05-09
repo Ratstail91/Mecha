@@ -173,14 +173,18 @@ void Application::ProcessEvents() {
 
 //Add the custom scene headers here
 #include "example_scene.hpp"
+#include "mockup_scene.hpp"
 
 void Application::ProcessSceneSignal(SceneSignal signal) {
 	ClearScene();
 
 	switch(signal) {
-		case SceneSignal::FIRST:
 		case SceneSignal::EXAMPLE_SCENE:
 			activeScene = new ExampleScene();
+		break;
+		case SceneSignal::FIRST:
+		case SceneSignal::MOCKUP_SCENE:
+			activeScene = new MockupScene();
 		break;
 		default: {
 			std::ostringstream msg;

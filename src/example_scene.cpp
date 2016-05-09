@@ -59,6 +59,9 @@ ExampleScene::ExampleScene() {
 	handOneButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player One");
 	handTwoButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player Two");
 	hideButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Hide");
+
+	//DEBUG
+	//...
 }
 
 ExampleScene::~ExampleScene() {
@@ -95,6 +98,15 @@ void ExampleScene::RenderFrame(SDL_Renderer* renderer) {
 	handTwoButton.DrawTo(renderer);
 	hideButton.SetX(w - 1 * hideButton.GetImage()->GetClipW());
 	hideButton.DrawTo(renderer);
+
+	switch(handState) {
+		case HandState::PLAYER_ONE:
+			RenderHand(renderer, &playerOneHand);
+		break;
+		case HandState::PLAYER_TWO:
+			RenderHand(renderer, &playerTwoHand);
+		break;
+	}
 }
 
 //-------------------------
@@ -151,9 +163,15 @@ void ExampleScene::MouseButtonDown(SDL_MouseButtonEvent const& event) {
 }
 
 void ExampleScene::MouseButtonUp(SDL_MouseButtonEvent const& event) {
-	handOneButton.MouseButtonUp(event);
-	handTwoButton.MouseButtonUp(event);
-	hideButton.MouseButtonUp(event);
+	if (handOneButton.MouseButtonUp(event) == Button::State::RELEASED) {
+		handState = HandState::PLAYER_ONE;
+	}
+	if (handTwoButton.MouseButtonUp(event) == Button::State::RELEASED) {
+		handState = HandState::PLAYER_TWO;
+	}
+	if (hideButton.MouseButtonUp(event) == Button::State::RELEASED) {
+		handState = HandState::HIDE;
+	}
 }
 
 void ExampleScene::MouseWheel(SDL_MouseWheelEvent const& event) {
@@ -186,9 +204,43 @@ void ExampleScene::KeyDown(SDL_KeyboardEvent const& event) {
 			camera.y = 0;
 			camera.zoom = 1.0;
 		break;
+
+		case SDLK_q:
+			//BUG: reset the buttons
+			handOneButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+			handTwoButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+			hideButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+
+			handOneButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player One");
+			handTwoButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player Two");
+			hideButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Hide");
+		break;
 	}
 }
 
 void ExampleScene::KeyUp(SDL_KeyboardEvent const& event) {
 	//
+}
+
+//-------------------------
+//utility methods
+//-------------------------
+
+void ExampleScene::RenderHand(SDL_Renderer* const renderer, TradingCardList* hand) {
+	if (!hand) {
+		return;
+	}
+
+	int screenW, screenH;
+	SDL_GetRendererOutputSize(renderer, &screenW, &screenH);
+
+	constexpr int increment = 40;
+	constexpr double scale = 0.5;
+	int destX = screenW - hand->Peek()->GetImage()->GetClipW() * scale;
+	int destY = increment;
+
+	for (TradingCard* it = hand->Peek(); it != nullptr; it = it->GetNext()) {
+		it->GetImage()->DrawTo(renderer, destX, destY, scale, scale);
+		destY += increment;
+	}
 }
