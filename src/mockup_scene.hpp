@@ -53,6 +53,9 @@ private:
 	void KeyDown(SDL_KeyboardEvent const& event) override;
 	void KeyUp(SDL_KeyboardEvent const& event) override;
 
+	//window events
+	void WindowResized(SDL_WindowEvent const& event) override;
+
 	//singleton references
 	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 

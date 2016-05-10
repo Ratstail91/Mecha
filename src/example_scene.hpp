@@ -54,13 +54,15 @@ private:
 	void KeyDown(SDL_KeyboardEvent const& event) override;
 	void KeyUp(SDL_KeyboardEvent const& event) override;
 
+	//window events
+	void WindowResized(SDL_WindowEvent const& event) override;
+
 	//singleton references
 	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 
 	//members
 	Battlefield battlefield;
 	Image backImage;
-	TradingCard tmpCard;
 
 	typedef CardList<TradingCard, NullSorter<TradingCard>> TradingCardList;
 
@@ -80,7 +82,7 @@ private:
 		HIDE
 	}handState = HandState::HIDE;
 
-	TTF_Font* font = nullptr;
+	TTF_Font* buttonFont = nullptr;
 
 	struct Camera {
 		int x = 0, y = 0;
@@ -89,4 +91,5 @@ private:
 
 	//utility methods
 	void RenderHand(SDL_Renderer* const, TradingCardList* hand);
+	void SetupButtons();
 };

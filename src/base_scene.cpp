@@ -103,3 +103,11 @@ void BaseScene::KeyDown(SDL_KeyboardEvent const& event) {
 void BaseScene::KeyUp(SDL_KeyboardEvent const& event) {
 	//EMPTY
 }
+
+//-------------------------
+//window events
+//-------------------------
+
+void BaseScene::WindowResized(SDL_WindowEvent const& event) {
+	//EMPTY
+}

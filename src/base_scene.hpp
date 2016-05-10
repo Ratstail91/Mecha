@@ -50,6 +50,9 @@ public:
 
 	//TODO: joystick and controller events
 
+	//window events
+	virtual void WindowResized(SDL_WindowEvent const& event);
+
 protected:
 	//control
 	static SDL_Renderer* GetRenderer();

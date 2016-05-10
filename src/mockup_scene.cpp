@@ -164,3 +164,14 @@ void MockupScene::KeyDown(SDL_KeyboardEvent const& event) {
 void MockupScene::KeyUp(SDL_KeyboardEvent const& event) {
 	//
 }
+
+//-------------------------
+//window events
+//-------------------------
+
+void MockupScene::WindowResized(SDL_WindowEvent const& event) {
+	//BUGFIX: There seems to be an issue when resizing the screen
+	for (TradingCard* it = cardMasterList.Peek(); it != nullptr; it = it->GetNext()) {
+		renderTradingCard(GetRenderer(), it, headerFont, textFont);
+	}
+}

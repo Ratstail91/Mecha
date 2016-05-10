@@ -28,16 +28,16 @@
 ExampleScene::ExampleScene() {
 	//load the resource files
 	textureLoader.Load(GetRenderer(), "rsc\\", "tower.png");
+
 	textureLoader.Load(GetRenderer(), "rsc\\", "mecha.png");
 	textureLoader.Load(GetRenderer(), "rsc\\", "command.png");
 	textureLoader.Load(GetRenderer(), "rsc\\", "back.png");
-	textureLoader.Load(GetRenderer(), "rsc\\", "button_blue.png");
 	textureLoader.Load(GetRenderer(), "rsc\\", "button_back_30.png");
 
-	font = TTF_OpenFont("rsc\\coolvetica rg.ttf", 12);
+	buttonFont = TTF_OpenFont("rsc\\coolvetica rg.ttf", 12);
 
 	//check that the font loaded
-	if (!font) {
+	if (!buttonFont) {
 		std::ostringstream msg;
 		msg << "Failed to load a font file; " << SDL_GetError();
 		throw(std::runtime_error(msg.str()));
@@ -49,16 +49,8 @@ ExampleScene::ExampleScene() {
 
 	backImage.SetTexture(textureLoader.Find("back.png"));
 
-	tmpCard.GetImage()->SetTexture(textureLoader.Find("mecha.png"));
-
-	//setup the buttons
-	handOneButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
-	handTwoButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
-	hideButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
-
-	handOneButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player One");
-	handTwoButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player Two");
-	hideButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Hide");
+	//reused code
+	SetupButtons();
 
 	//DEBUG
 	//...
@@ -88,15 +80,8 @@ void ExampleScene::RenderFrame(SDL_Renderer* renderer) {
 	backImage.DrawTo(renderer, battlefield.GetX() - camera.x, battlefield.GetY() - camera.y, camera.zoom * 10.0/45.0, camera.zoom * 10.0/45.0);
 	battlefield.DrawTo(renderer, camera.x, camera.y, camera.zoom);
 
-	//adjust to any changes in screen size
-	int w, h;
-	SDL_GetRendererOutputSize(renderer, &w, &h);
-
-	handOneButton.SetX(w - 3 * handOneButton.GetImage()->GetClipW());
 	handOneButton.DrawTo(renderer);
-	handTwoButton.SetX(w - 2 * handTwoButton.GetImage()->GetClipW());
 	handTwoButton.DrawTo(renderer);
-	hideButton.SetX(w - 1 * hideButton.GetImage()->GetClipW());
 	hideButton.DrawTo(renderer);
 
 	switch(handState) {
@@ -153,12 +138,10 @@ void ExampleScene::MouseButtonDown(SDL_MouseButtonEvent const& event) {
 	}
 
 	if (battlefield.FindCard(slotX, slotY) == nullptr) {
-		std::cout << "Push" << std::endl;
-		battlefield.PushCard(&tmpCard, slotX, slotY);
+		//TODO: push
 	}
 	else {
-		std::cout << "Pop" << std::endl;
-		battlefield.PopCard(slotX, slotY);
+		//TODO: pop
 	}
 }
 
@@ -204,17 +187,6 @@ void ExampleScene::KeyDown(SDL_KeyboardEvent const& event) {
 			camera.y = 0;
 			camera.zoom = 1.0;
 		break;
-
-		case SDLK_q:
-			//BUG: reset the buttons
-			handOneButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
-			handTwoButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
-			hideButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
-
-			handOneButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player One");
-			handTwoButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Player Two");
-			hideButton.SetText(GetRenderer(), font, {255, 255, 255, 255}, "Hide");
-		break;
 	}
 }
 
@@ -223,11 +195,20 @@ void ExampleScene::KeyUp(SDL_KeyboardEvent const& event) {
 }
 
 //-------------------------
+//window events
+//-------------------------
+
+void ExampleScene::WindowResized(SDL_WindowEvent const& event) {
+	//BUGFIX: There seems to be an issue when resizing the screen
+	SetupButtons();
+}
+
+//-------------------------
 //utility methods
 //-------------------------
 
 void ExampleScene::RenderHand(SDL_Renderer* const renderer, TradingCardList* hand) {
-	if (!hand) {
+	if (!hand || hand->Peek() == nullptr) {
 		return;
 	}
 
@@ -243,4 +224,27 @@ void ExampleScene::RenderHand(SDL_Renderer* const renderer, TradingCardList* han
 		it->GetImage()->DrawTo(renderer, destX, destY, scale, scale);
 		destY += increment;
 	}
+}
+
+void ExampleScene::SetupButtons() {
+	//setup the buttons
+	handOneButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+	handTwoButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+	hideButton.SetBackgroundTexture(GetRenderer(), textureLoader.Find("button_back_30.png"));
+
+	handOneButton.SetText(GetRenderer(), buttonFont, {255, 255, 255, 255}, "Player One");
+	handTwoButton.SetText(GetRenderer(), buttonFont, {255, 255, 255, 255}, "Player Two");
+	hideButton.SetText(GetRenderer(), buttonFont, {255, 255, 255, 255}, "Hide");
+
+	//adjust to any changes in screen size
+	int w, h;
+	SDL_GetRendererOutputSize(GetRenderer(), &w, &h);
+
+	handOneButton.SetX(w - 3 * handOneButton.GetImage()->GetClipW());
+	handTwoButton.SetX(w - 2 * handTwoButton.GetImage()->GetClipW());
+	hideButton.SetX(w - 1 * hideButton.GetImage()->GetClipW());
+
+	handOneButton.SetY(0);
+	handTwoButton.SetY(0);
+	hideButton.SetY(0);
 }
