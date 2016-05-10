@@ -1,26 +1,26 @@
 #name;type;cost;text;power;durability
-Radio Tower;Basic Tower;;Provides 1u (1 unit of bandwidth. Play only one Tower card each turn).;;1
-Radio Relay;Mecha Tower;1;(Radio Relay counts as a Mecha and a Tower. Play only one Tower card each turn.) Play this card only on a space with a Radio Tower. Destroy that tower. Provides 1u for each unit you control named Radio Relay (1 unit of bandwidth).;0;2
+Radio Tower;Basic Tower;;Provides 1u (1 unit of bandwidth. Play only one Tower/card each turn).;;1
+Radio Relay;Mecha Tower;1;(Radio Relay counts as a Mecha and a Tower. Play only/one Tower card each turn.)/ /Play this card only on a space with a Radio Tower./Destroy that tower./ /Provides 1u for each unit you control named Radio Relay/(1 unit of bandwidth).;0;2
 Attack Vector;Mecha;2;(No abilities.);2;1
 Mega Bot;Mecha;3;(No abilities.);3;2
 Class Ganon;Mecha;4;(No abilities.);4;1
-Mod Bot;Mecha;2;Sacrifice a neighbouring mecha you control. If you do, add that unit's durability to this mecha.;1;2
-Cap Gun;Mecha;1;Pierce (This unit ignores Armour counters). Reach (This unit may attack units with flight).;1;1
-Shortbow;Mecha;1;Pierce (This unit ignores Armour counters). Range 2 (This unit may attack any unit within two spaces).;1;1
-Longbow;Mecha;2;Pierce (This unit ignores Armour counters). Range 3 (This unit may attack any unit within three spaces).;1;1
-Bot-a-pult;Mecha;2;Reach (This unit may attack units with flight). Sacrifice a neighbouring mecha you control. If you do, this mecha gains Range 3 this turn (This unit may attack any unit within three spaces this turn).;2;2
-Stonewall;Mecha;1;This mecha can't attack. When this mecha moves, it can't move next turn.;0;61
-Turtle;Mecha;2;Armour 1 (This unit can be hit once without taking damage). This mecha may not attack and move in the same turn.;2;3
-Dragon;Mecha;4;Armour 2 (This unit can be hit twice without taking damage). This mecha may not attack and move in the same turn.;4;4
-Jager;Mecha;6;Armour 3 (This unit can be hit three times without taking damage). Reach (This unit may attack units with flight).;6;6
-Insect Drone;Mecha;2;Flight (This unit can't be attacked except by units with flight or reach).;1;1
-Wasp Drone;Mecha;3;Flight (This unit can't be attacked except by units with flight or reach). When this mecha attacks, the target can't attack next turn.;1;1
-Magpie Drone;Mecha;3;Flight (This unit can't be attacked except by units with flight or reach). When this mecha attacks, the target must move next turn if possible.;1;1
-Attack Orders;Command;;One mecha you control can attack an extra time this turn.;;
-Marching Orders;Command;;One mecha you control can move an extra space this turn.;;
-Ramp Orders;Command;;One mecha you control gains Reach this turn (That unit may attack units with flight).;;
-Virus;Command;;Sacrifice a Tower you control. If you do, one mecha an opponent controls can't attack this turn.;;
-Tunnel Warfare;Command;;Discard another card from your hand. If you do, any one mecha you control can move an extra space this turn.;;
-Road Works;Command;;Play this card on the battlefield with 2 time counters on it (Remove one time counter at the beginning of each turn). At the beginning of your main phase, if there are no time counters on this card, neighbouring mechas gain Speed 3 this turn (those unit may move up to three spaces this turn).;;
+Mod Bot;Mecha;2;Sacrifice a neighbouring mecha you control. If you do,/add that unit's durability to this mecha.;1;2
+Cap Gun;Mecha;1;Pierce (This unit ignores Armour counters)./ /Reach (This unit may attack units with flight).;1;1
+Shortbow;Mecha;1;Pierce (This unit ignores Armour counters)./ /Range 2 (This unit may attack any unit within two/spaces).;1;1
+Longbow;Mecha;2;Pierce (This unit ignores Armour counters)./ /Range 3 (This unit may attack any unit within three/spaces).;1;1
+Bot-a-pult;Mecha;2;Reach (This unit may attack units with flight)./ /Sacrifice a neighbouring mecha you control. If you do,/this mecha gains Range 3 this turn (This unit may attack/any unit within three spaces this turn).;2;2
+Stonewall;Mecha;1;This mecha can't attack. When this mecha moves, it can't/move next turn.;0;61
+Turtle;Mecha;2;Armour 1 (This unit can be hit once without taking/damage)./ /This mecha may not attack and move in the same turn.;2;3
+Dragon;Mecha;4;Armour 2 (This unit can be hit twice without taking/damage)./ /This mecha may not attack and move in the same turn.;4;4
+Jager;Mecha;6;Armour 3 (This unit can be hit three times without/taking damage)./ /Reach (This unit may attack units with flight).;6;6
+Insect Drone;Mecha;2;Flight (This unit can't be attacked except by units with/flight or reach).;1;1
+Wasp Drone;Mecha;3;Flight (This unit can't be attacked except by units with/flight or reach)./ /When this mecha attacks, the target can't attack next/turn.;1;1
+Magpie Drone;Mecha;3;Flight (This unit can't be attacked except by units with/flight or reach)./ /When this mecha attacks, the target must move next turn/if possible.;1;1
+Attack Orders;Command;;One mecha you control can attack an extra time this/turn.;;
+Marching Orders;Command;;One mecha you control can move an extra space this/turn.;;
+Ramp Orders;Command;;One mecha you control gains Reach this turn (That unit/may attack units with flight).;;
+Virus;Command;;Sacrifice a Tower you control. If you do, one mecha an/opponent controls can't attack this turn.;;
+Tunnel Warfare;Command;;Discard another card from your hand. If you do, any one/mecha you control can move an extra space this turn.;;
+Road Works;Command;;Play this card on the battlefield with 2 time counters on/it (Remove one time counter at the beginning of each/turn)./ /At the beginning of your main phase, if there are no time/counters on this card, neighbouring mechas gain Speed 3/this turn (those unit may move up to three spaces this/turn).;;
 Espionage;Command;;Look at any one player's hand, then draw a card.;;
-Ironhide;Command;;Put two Armour counters on any one mecha in your entry zone (That unit can be hit once without taking damage).;;
+Ironhide;Command;;Put two Armour counters on any one mecha in your/entry zone (That unit can be hit once without taking/damage).;;

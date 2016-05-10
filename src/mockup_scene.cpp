@@ -241,7 +241,7 @@ void MockupScene::RenderCard(TradingCard* card) {
 
 	int increment = 0;
 	for (auto& it : linesList) {
-		renderTextDirect(GetRenderer(), textFont, {255, 255, 255, 255}, it, 25, 260 + increment * 12);
+		renderTextDirect(GetRenderer(), textFont, {0, 0, 0, 255}, it, 20, 260 + increment * 16);
 		increment++;
 	}
 
