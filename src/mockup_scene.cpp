@@ -24,7 +24,9 @@
 #include "render_text_texture.hpp"
 
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
+#include <list>
 #include <stdexcept>
 #include <string>
 
@@ -65,17 +67,13 @@ TradingCard::Type readType(std::string s) {
 	throw(std::runtime_error(msg.str()));
 }
 
-void renderTextDirect(SDL_Renderer* const renderer, TTF_Font* font, std::string str, int x, int y) {
+void renderTextDirect(SDL_Renderer* const renderer, TTF_Font* font, SDL_Color color, std::string str, int x, int y) {
 	int w = 0, h = 0;
-	SDL_Texture* tmpTex = renderTextTexture(renderer, font, {255, 255, 255, 255}, str);
+	SDL_Texture* tmpTex = renderTextTexture(renderer, font, color, str);
 	SDL_QueryTexture(tmpTex, nullptr, nullptr, &w, &h);
 	SDL_Rect dclip = {x, y, w, h};
 	SDL_RenderCopy(renderer, tmpTex, nullptr, &dclip);
 	SDL_DestroyTexture(tmpTex);
-}
-
-std::list<std::string> splitString(std::string base, const char delim) {
-	//
 }
 
 MockupScene::MockupScene() {
@@ -85,8 +83,8 @@ MockupScene::MockupScene() {
 	textureLoader.Load(GetRenderer(), "rsc\\", "command.png");
 
 	//fonts
-	headerFont = TTF_OpenFont("rsc\\coolvetica rg.ttf", 24);
-	textFont = TTF_OpenFont("rsc\\coolvetica rg.ttf", 16);
+	headerFont = TTF_OpenFont("rsc\\belerensmallcaps-bold-webfont.ttf", 24);
+	textFont = TTF_OpenFont("rsc\\beleren-bold-webfont.ttf", 16);
 
 	//check that the font loaded
 	if (!headerFont) {
@@ -221,19 +219,31 @@ void MockupScene::RenderCard(TradingCard* card) {
 	SDL_RenderCopy(GetRenderer(), backTexture, nullptr, nullptr);
 
 	//name
-	renderTextDirect(GetRenderer(), headerFont, card->GetName(), 20, 15);
+	renderTextDirect(GetRenderer(), headerFont, {255, 255, 255, 255}, card->GetName(), 20, 15);
 
 	if (card->GetType() == TradingCard::Type::MECHA || card->GetType() == TradingCard::Type::MECHA_TOWER) {
 		char tmpcstr[16];
 
 		//cost, power, durability
-		renderTextDirect(GetRenderer(), headerFont, itoa(card->GetCost(), tmpcstr, 10), 30, 55);
-		renderTextDirect(GetRenderer(), headerFont, itoa(card->GetPower(), tmpcstr, 10), 30, 55+24);
-		renderTextDirect(GetRenderer(), headerFont, itoa(card->GetDurability(), tmpcstr, 10), 30, 55+48);
+		renderTextDirect(GetRenderer(), headerFont, {255, 255, 255, 255}, itoa(card->GetCost(), tmpcstr, 10), 25, 55);
+		renderTextDirect(GetRenderer(), headerFont, {255, 255, 255, 255}, itoa(card->GetPower(), tmpcstr, 10), 25, 55+24);
+		renderTextDirect(GetRenderer(), headerFont, {255, 255, 255, 255}, itoa(card->GetDurability(), tmpcstr, 10), 25, 55+48);
 	}
 
-	//text
-	renderTextDirect(GetRenderer(), textFont, card->GetText(), 20, 250);
+	//text, splitting the string
+	char buffer[512];
+	std::list<std::string> linesList;
+	strcpy(buffer, card->GetText().c_str());
+	const char* cstr = strtok(buffer, "/");
+	do {
+		linesList.push_back(cstr);
+	} while(cstr = strtok(nullptr, "/"));
+
+	int increment = 0;
+	for (auto& it : linesList) {
+		renderTextDirect(GetRenderer(), textFont, {255, 255, 255, 255}, it, 25, 260 + increment * 12);
+		increment++;
+	}
 
 	//cleanup
 	SDL_SetRenderTarget(GetRenderer(), nullptr);

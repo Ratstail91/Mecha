@@ -73,8 +73,9 @@ CSVObject<N> readCSV(std::string fname, char delim = ',') {
 		CSVElement<N> record;
 		for (int i = 0; i < N; ++i) {
 			//get a field
-			char tmpField[256];
-			memset(tmpField, 0, 256);
+			//BUG: potential buffer overflow
+			char tmpField[1024];
+			memset(tmpField, 0, 1024);
 
 			sscanf(tmpLine.c_str(), format.str().c_str(), tmpField);
 
