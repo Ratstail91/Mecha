@@ -62,7 +62,6 @@ private:
 	TTF_Font* textFont = nullptr;
 
 	CardList cardMasterList;
-	void RenderCard(TradingCard*);
 
 	int selection = 24;
 };

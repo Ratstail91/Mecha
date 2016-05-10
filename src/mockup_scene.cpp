@@ -22,11 +22,9 @@
 #include "mockup_scene.hpp"
 
 #include "render_text_texture.hpp"
+#include "render_trading_card.hpp"
 
-#include <cstdlib>
-#include <cstring>
 #include <iostream>
-#include <list>
 #include <stdexcept>
 #include <string>
 
@@ -47,15 +45,6 @@ int stricmp (const char *s1, const char *s2) {
 }
 #endif
 
-#ifndef itoa
-char* itoa(int value, char* str, int base) {
-	//ignore base
-	sprintf(str, "%d", value);
-	return str;
-
-}
-#endif
-
 TradingCard::Type readType(std::string s) {
 	if (!stricmp(s.c_str(), "basic tower")) return TradingCard::Type::BASIC_TOWER;
 	if (!stricmp(s.c_str(), "mecha")) return TradingCard::Type::MECHA;
@@ -65,15 +54,6 @@ TradingCard::Type readType(std::string s) {
 	std::ostringstream msg;
 	msg << "Failed to read the card type: " << s;
 	throw(std::runtime_error(msg.str()));
-}
-
-void renderTextDirect(SDL_Renderer* const renderer, TTF_Font* font, SDL_Color color, std::string str, int x, int y) {
-	int w = 0, h = 0;
-	SDL_Texture* tmpTex = renderTextTexture(renderer, font, color, str);
-	SDL_QueryTexture(tmpTex, nullptr, nullptr, &w, &h);
-	SDL_Rect dclip = {x, y, w, h};
-	SDL_RenderCopy(renderer, tmpTex, nullptr, &dclip);
-	SDL_DestroyTexture(tmpTex);
 }
 
 MockupScene::MockupScene() {
@@ -87,7 +67,7 @@ MockupScene::MockupScene() {
 	textFont = TTF_OpenFont("rsc\\beleren-bold-webfont.ttf", 16);
 
 	//check that the font loaded
-	if (!headerFont) {
+	if (!headerFont || !textFont) {
 		std::ostringstream msg;
 		msg << "Failed to load a font file; " << SDL_GetError();
 		throw(std::runtime_error(msg.str()));
@@ -108,7 +88,7 @@ MockupScene::MockupScene() {
 		floatingCard->SetPower(std::atoi(it[4].c_str()));
 		floatingCard->SetDurability(std::atoi(it[5].c_str()));
 
-		RenderCard(floatingCard);
+		renderTradingCard(GetRenderer(), floatingCard, headerFont, textFont);
 
 		cardMasterList.Push(floatingCard);
 	}
@@ -183,68 +163,4 @@ void MockupScene::KeyDown(SDL_KeyboardEvent const& event) {
 
 void MockupScene::KeyUp(SDL_KeyboardEvent const& event) {
 	//
-}
-
-void MockupScene::RenderCard(TradingCard* card) {
-	//background image
-	SDL_Texture* backTexture = nullptr;
-
-	switch(card->GetType()) {
-		case TradingCard::Type::BASIC_TOWER:
-		case TradingCard::Type::TOWER:
-			backTexture = textureLoader.Find("tower.png");
-		break;
-		case TradingCard::Type::MECHA:
-		case TradingCard::Type::MECHA_TOWER:
-			backTexture = textureLoader.Find("mecha.png");
-		break;
-		case TradingCard::Type::COMMAND:
-			backTexture = textureLoader.Find("command.png");
-		break;
-	}
-
-	//prep the image for rendering
-	int w = 0, h = 0;
-	SDL_QueryTexture(backTexture, nullptr, nullptr, &w, &h);
-	card->GetImage()->Create(GetRenderer(), w, h);
-	SDL_SetRenderTarget(GetRenderer(), card->GetImage()->GetTexture());
-
-	//variables
-	SDL_Texture* tmpPtr = nullptr;
-	SDL_Rect dclip;
-
-	//render each component
-
-	//background
-	SDL_RenderCopy(GetRenderer(), backTexture, nullptr, nullptr);
-
-	//name
-	renderTextDirect(GetRenderer(), headerFont, {255, 255, 255, 255}, card->GetName(), 20, 15);
-
-	if (card->GetType() == TradingCard::Type::MECHA || card->GetType() == TradingCard::Type::MECHA_TOWER) {
-		char tmpcstr[16];
-
-		//cost, power, durability
-		renderTextDirect(GetRenderer(), headerFont, {255, 255, 255, 255}, itoa(card->GetCost(), tmpcstr, 10), 25, 55);
-		renderTextDirect(GetRenderer(), headerFont, {255, 255, 255, 255}, itoa(card->GetPower(), tmpcstr, 10), 25, 55+24);
-		renderTextDirect(GetRenderer(), headerFont, {255, 255, 255, 255}, itoa(card->GetDurability(), tmpcstr, 10), 25, 55+48);
-	}
-
-	//text, splitting the string
-	char buffer[512];
-	std::list<std::string> linesList;
-	strcpy(buffer, card->GetText().c_str());
-	const char* cstr = strtok(buffer, "/");
-	do {
-		linesList.push_back(cstr);
-	} while(cstr = strtok(nullptr, "/"));
-
-	int increment = 0;
-	for (auto& it : linesList) {
-		renderTextDirect(GetRenderer(), textFont, {0, 0, 0, 255}, it, 20, 260 + increment * 16);
-		increment++;
-	}
-
-	//cleanup
-	SDL_SetRenderTarget(GetRenderer(), nullptr);
 }

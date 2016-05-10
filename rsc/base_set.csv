@@ -9,7 +9,7 @@ Cap Gun;Mecha;1;Pierce (This unit ignores Armour counters)./ /Reach (This unit m
 Shortbow;Mecha;1;Pierce (This unit ignores Armour counters)./ /Range 2 (This unit may attack any unit within two/spaces).;1;1
 Longbow;Mecha;2;Pierce (This unit ignores Armour counters)./ /Range 3 (This unit may attack any unit within three/spaces).;1;1
 Bot-a-pult;Mecha;2;Reach (This unit may attack units with flight)./ /Sacrifice a neighbouring mecha you control. If you do,/this mecha gains Range 3 this turn (This unit may attack/any unit within three spaces this turn).;2;2
-Stonewall;Mecha;1;This mecha can't attack. When this mecha moves, it can't/move next turn.;0;61
+Stonewall;Mecha;1;This mecha can't attack. When this mecha moves, it can't/move next turn.;0;6
 Turtle;Mecha;2;Armour 1 (This unit can be hit once without taking/damage)./ /This mecha may not attack and move in the same turn.;2;3
 Dragon;Mecha;4;Armour 2 (This unit can be hit twice without taking/damage)./ /This mecha may not attack and move in the same turn.;4;4
 Jager;Mecha;6;Armour 3 (This unit can be hit three times without/taking damage)./ /Reach (This unit may attack units with flight).;6;6
