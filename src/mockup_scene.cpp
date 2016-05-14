@@ -158,6 +158,12 @@ void MockupScene::KeyDown(SDL_KeyboardEvent const& event) {
 		case SDLK_ESCAPE:
 			QuitEvent();
 		break;
+		case SDLK_UP:
+			if (selection < 24) selection++;
+		break;
+		case SDLK_DOWN:
+			if (selection > 0) selection--;
+		break;
 	}
 }
 

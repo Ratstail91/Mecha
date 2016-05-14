@@ -10,9 +10,9 @@ Shortbow;Mecha;1;Pierce (This unit ignores Armour counters)./ /Range 2 (This uni
 Longbow;Mecha;2;Pierce (This unit ignores Armour counters)./ /Range 3 (This unit may attack any unit within three/spaces).;1;1
 Bot-a-pult;Mecha;2;Reach (This unit may attack units with flight)./ /Sacrifice a neighbouring mecha you control. If you do,/this mecha gains Range 3 this turn (This unit may attack/any unit within three spaces this turn).;2;2
 Stonewall;Mecha;1;This mecha can't attack. When this mecha moves, it can't/move next turn.;0;6
-Turtle;Mecha;2;Armour 1 (This unit can be hit once without taking/damage)./ /This mecha may not attack and move in the same turn.;2;3
-Dragon;Mecha;4;Armour 2 (This unit can be hit twice without taking/damage)./ /This mecha may not attack and move in the same turn.;4;4
-Jager;Mecha;6;Armour 3 (This unit can be hit three times without/taking damage)./ /Reach (This unit may attack units with flight).;6;6
+Turtle;Mecha;2;Armour 1 (This unit enters the battlefield with one/Armour counter. If it would take damage while it has/any Armour counters, prevent that damage and remove/an Armour counter)./ /This mecha may not attack and move in the same turn.;2;3
+Dragon;Mecha;4;Armour 2 (This unit enters the battlefield with two/Armour counters. If it would take damage while it has/any Armour counters, prevent that damage and remove/an Armour counter)./ /This mecha may not attack and move in the same turn.;4;4
+Jager;Mecha;6;Armour 3 (This unit enters the battlefield with three/Armour counters. If it would take damage while it has/any Armour counters, prevent that damage and remove/an Armour counter)./ /Reach (This unit may attack units with flight).;6;6
 Insect Drone;Mecha;2;Flight (This unit can't be attacked except by units with/flight or reach).;1;1
 Wasp Drone;Mecha;3;Flight (This unit can't be attacked except by units with/flight or reach)./ /When this mecha attacks, the target can't attack next/turn.;1;1
 Magpie Drone;Mecha;3;Flight (This unit can't be attacked except by units with/flight or reach)./ /When this mecha attacks, the target must move next turn/if possible.;1;1
@@ -23,4 +23,4 @@ Virus;Command;;Sacrifice a Tower you control. If you do, one mecha an/opponent c
 Tunnel Warfare;Command;;Discard another card from your hand. If you do, any one/mecha you control can move an extra space this turn.;;
 Road Works;Command;;Play this card on the battlefield with 2 time counters on/it (Remove one time counter at the beginning of each/turn)./ /At the beginning of your main phase, if there are no time/counters on this card, neighbouring mechas gain Speed 3/this turn (those unit may move up to three spaces this/turn).;;
 Espionage;Command;;Look at any one player's hand, then draw a card.;;
-Ironhide;Command;;Put two Armour counters on any one mecha in your/entry zone (That unit can be hit once without taking/damage).;;
+Ironhide;Command;;Put two Armour counters on any one mecha in your/entry zone (If a unit would take damage while it has any/Armour counters, prevent that damage and remove an/Armour counter).;;
