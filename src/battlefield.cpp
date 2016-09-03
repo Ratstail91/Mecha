@@ -24,10 +24,10 @@
 #include <stdexcept>
 
 Battlefield::Battlefield() {
-	fieldArray = new TradingCard**[9];
-	for (int i = 0; i < 9; i++) {
-		fieldArray[i] = new TradingCard*[9];
-		for (int j = 0; j < 9; j++) {
+	fieldArray = new TradingCard**[BATTLEFIELD_WIDTH];
+	for (int i = 0; i < BATTLEFIELD_WIDTH; i++) {
+		fieldArray[i] = new TradingCard*[BATTLEFIELD_HEIGHT];
+		for (int j = 0; j < BATTLEFIELD_HEIGHT; j++) {
 			fieldArray[i][j] = nullptr;
 		}
 	}
@@ -35,8 +35,8 @@ Battlefield::Battlefield() {
 
 Battlefield::~Battlefield() {
 	//prevent memory leaks
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
+	for (int i = 0; i < BATTLEFIELD_WIDTH; i++) {
+		for (int j = 0; j < BATTLEFIELD_HEIGHT; j++) {
 			delete fieldArray[i][j];
 		}
 		delete fieldArray[i];
@@ -45,13 +45,14 @@ Battlefield::~Battlefield() {
 }
 
 void Battlefield::DrawTo(SDL_Renderer* const renderer, int camX, int camY, double zoom) {
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
+	for (int i = 0; i < BATTLEFIELD_WIDTH; i++) {
+		for (int j = 0; j < BATTLEFIELD_HEIGHT; j++) {
 			if (fieldArray[i][j]) {
 				fieldArray[i][j]->GetImage()->DrawTo(
 					renderer,
 					posX - camX + i * cardW * zoom,
 					posY - camY + j * cardH * zoom,
+					//NOTE: Magic numbers
 					10.0/45.0 * zoom,
 					10.0/45.0 * zoom
 					);
@@ -65,7 +66,7 @@ void Battlefield::DrawTo(SDL_Renderer* const renderer, int camX, int camY, doubl
 //-------------------------
 
 TradingCard* Battlefield::PushCard(TradingCard* const card, int x, int y) {
-	if (x < 0 || x >= 9 || y < 0 || y >= 9) {
+	if (x < 0 || x >= BATTLEFIELD_WIDTH || y < 0 || y >= BATTLEFIELD_HEIGHT) {
 		throw(std::out_of_range("Field space out of range"));
 	}
 	if (fieldArray[x][y] != nullptr) {
@@ -75,14 +76,14 @@ TradingCard* Battlefield::PushCard(TradingCard* const card, int x, int y) {
 }
 
 TradingCard* Battlefield::FindCard(int x, int y) {
-	if (x < 0 || x >= 9 || y < 0 || y >= 9) {
+	if (x < 0 || x >= BATTLEFIELD_WIDTH || y < 0 || y >= BATTLEFIELD_HEIGHT) {
 		throw(std::out_of_range("Field space out of range"));
 	}
 	return fieldArray[x][y];
 }
 
 TradingCard* Battlefield::PopCard(int x, int y) {
-	if (x < 0 || x >= 9 || y < 0 || y >= 9) {
+	if (x < 0 || x >= BATTLEFIELD_WIDTH || y < 0 || y >= BATTLEFIELD_HEIGHT) {
 		throw(std::out_of_range("Field space out of range"));
 	}
 	TradingCard* ret = fieldArray[x][y];

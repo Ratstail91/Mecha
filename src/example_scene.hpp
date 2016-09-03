@@ -84,11 +84,6 @@ private:
 
 	TTF_Font* buttonFont = nullptr;
 
-	struct Camera {
-		int x = 0, y = 0;
-		double zoom = 1.0;
-	}camera;
-
 	//utility methods
 	void RenderHand(SDL_Renderer* const, TradingCardList* hand);
 	void SetupButtons();

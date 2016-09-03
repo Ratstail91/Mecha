@@ -77,8 +77,9 @@ void ExampleScene::FrameEnd() {
 }
 
 void ExampleScene::RenderFrame(SDL_Renderer* renderer) {
-	backImage.DrawTo(renderer, battlefield.GetX() - camera.x, battlefield.GetY() - camera.y, camera.zoom * 10.0/45.0, camera.zoom * 10.0/45.0);
-	battlefield.DrawTo(renderer, camera.x, camera.y, camera.zoom);
+	//NOTE: Magic numbers
+	backImage.DrawTo(renderer, battlefield.GetX(), battlefield.GetY(), 10.0/45.0, 10.0/45.0);
+	battlefield.DrawTo(renderer, 0, 0, 1);
 
 	handOneButton.DrawTo(renderer);
 	handTwoButton.DrawTo(renderer);
@@ -102,11 +103,6 @@ void ExampleScene::MouseMotion(SDL_MouseMotionEvent const& event) {
 	handOneButton.MouseMotion(event);
 	handTwoButton.MouseMotion(event);
 	hideButton.MouseMotion(event);
-
-	if (event.state & SDL_BUTTON_RMASK) {
-		camera.x -= event.xrel;
-		camera.y -= event.yrel;
-	}
 }
 
 void ExampleScene::MouseButtonDown(SDL_MouseButtonEvent const& event) {
@@ -121,21 +117,19 @@ void ExampleScene::MouseButtonDown(SDL_MouseButtonEvent const& event) {
 	}
 
 	//BUGFIX: off-by-one error caused by dividing negatives
-	int clickX = event.x - battlefield.GetX() + camera.x;
-	int clickY = event.y - battlefield.GetY() + camera.y;
-	if (clickX < 0 || clickY < 0) {
+	int clickX = event.x - battlefield.GetX();
+	int clickY = event.y - battlefield.GetY();
+	if (clickX < 0 || clickY < 0 ||
+		clickX >= Battlefield::BATTLEFIELD_WIDTH * battlefield.GetCardW() ||
+		clickY >= Battlefield::BATTLEFIELD_HEIGHT * battlefield.GetCardH()
+		) {
 		return;
 	}
 
-	int slotX = clickX / camera.zoom / battlefield.GetCardW();
-	int slotY = clickY / camera.zoom / battlefield.GetCardH();
+	int slotX = clickX / battlefield.GetCardW();
+	int slotY = clickY / battlefield.GetCardH();
 
-	std::cout << slotX << "\t" << slotY << "\t";
-
-	if (slotX < 0 || slotX >= 9 || slotY < 0 || slotY >= 9) {
-		std::cout << std::endl;
-		return;
-	}
+	std::cout << slotX << "\t" << slotY << "\t" << std::endl;
 
 	if (battlefield.FindCard(slotX, slotY) == nullptr) {
 		//TODO: push
@@ -158,20 +152,7 @@ void ExampleScene::MouseButtonUp(SDL_MouseButtonEvent const& event) {
 }
 
 void ExampleScene::MouseWheel(SDL_MouseWheelEvent const& event) {
-	if (event.y < 0) {
-		camera.zoom /= 1.1;
-	}
-	if (event.y > 0) {
-		camera.zoom *= 1.1;
-	}
-
-	//set min/max
-	if (camera.zoom < 0.5) {
-		camera.zoom = 0.5;
-	}
-	if (camera.zoom > 3.0) {
-		camera.zoom = 3.0;
-	}
+	//
 }
 
 void ExampleScene::KeyDown(SDL_KeyboardEvent const& event) {
@@ -179,13 +160,6 @@ void ExampleScene::KeyDown(SDL_KeyboardEvent const& event) {
 	switch(event.keysym.sym) {
 		case SDLK_ESCAPE:
 			QuitEvent();
-		break;
-
-		case SDLK_SPACE:
-			//reset the camera
-			camera.x = 0;
-			camera.y = 0;
-			camera.zoom = 1.0;
 		break;
 	}
 }
@@ -208,13 +182,16 @@ void ExampleScene::WindowResized(SDL_WindowEvent const& event) {
 //-------------------------
 
 void ExampleScene::RenderHand(SDL_Renderer* const renderer, TradingCardList* hand) {
+	//don't render an empty hand
 	if (!hand || hand->Peek() == nullptr) {
 		return;
 	}
 
+	//get the screen size
 	int screenW, screenH;
 	SDL_GetRendererOutputSize(renderer, &screenW, &screenH);
 
+	//where to draw the hand
 	constexpr int increment = 40;
 	constexpr double scale = 0.5;
 	int destX = screenW - hand->Peek()->GetImage()->GetClipW() * scale;

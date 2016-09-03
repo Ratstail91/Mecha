@@ -27,6 +27,9 @@
 
 class Battlefield {
 public:
+	static constexpr int BATTLEFIELD_WIDTH = 5;
+	static constexpr int BATTLEFIELD_HEIGHT = 5;
+
 	Battlefield();
 	~Battlefield();
 
