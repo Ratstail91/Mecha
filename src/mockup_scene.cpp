@@ -64,6 +64,9 @@ MockupScene::MockupScene() {
 
 		renderTradingCard(GetRenderer(), floatingCard, headerFont, textFont);
 
+		//NOTE: img/ directory must already exist
+		saveCardImage(GetRenderer(), floatingCard, (std::string() + "img/" + floatingCard->GetName() + ".bmp").c_str());
+
 		cardMasterList.Push(floatingCard);
 	}
 }

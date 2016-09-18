@@ -169,3 +169,25 @@ void renderTradingCard(SDL_Renderer* const renderer, TradingCard* card, TTF_Font
 	//cleanup
 	SDL_SetRenderTarget(renderer, nullptr);
 }
+
+void saveCardImage(SDL_Renderer* const renderer, TradingCard* card, char const* filename) {
+	//point to the image
+	SDL_SetRenderTarget(renderer, card->GetImage()->GetTexture());
+
+	//Create an empty RGB surface that will be used to create the screenshot bmp file
+	SDL_Surface* surface = SDL_CreateRGBSurface(0, card->GetImage()->GetClipW(), card->GetImage()->GetClipH(), 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+
+	if(surface) {
+		//Read the pixels from the current render target and save them onto the surface
+		SDL_RenderReadPixels(renderer, NULL, 0, surface->pixels, surface->pitch);
+
+		//Create the bmp screenshot file
+		SDL_SaveBMP(surface, filename);
+
+		//Destroy the screenshot surface
+		SDL_FreeSurface(surface);
+	}
+
+	//cleanup
+	SDL_SetRenderTarget(renderer, nullptr);
+}

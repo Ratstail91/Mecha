@@ -32,3 +32,5 @@ TradingCard::Rarity readRarity(std::string s);
 std::string writeRarity(TradingCard::Rarity rarity);
 
 void renderTradingCard(SDL_Renderer* const, TradingCard* card, TTF_Font* headerFont, TTF_Font* textFont);
+
+void saveCardImage(SDL_Renderer* const, TradingCard* card, char const* filename);
