@@ -46,19 +46,21 @@ MockupScene::MockupScene() {
 	}
 
 	//load the card data
-	CSVObject<6> cardCSV = readCSV<6>("rsc/base_set.csv", ';');
+	//#Format 2: rarity;name;type;cost;power;durability;text
+	CSVObject<7> cardCSV = readCSV<7>("rsc/base_set.csv", ';');
 
 	for (auto& it : cardCSV) {
-		std::cout << it[0] << std::endl;
+		std::cout << it[1] << std::endl;
 
 		//make and set the new card
 		TradingCard* floatingCard = new TradingCard();
-		floatingCard->SetName(it[0]);
-		floatingCard->SetType(readType(it[1]));
-		floatingCard->SetCost(std::atoi(it[2].c_str()));
-		floatingCard->SetText(it[3]);
+		floatingCard->SetRarity(readRarity(it[0]));
+		floatingCard->SetName(it[1]);
+		floatingCard->SetType(readType(it[2]));
+		floatingCard->SetCost(std::atoi(it[3].c_str()));
 		floatingCard->SetPower(std::atoi(it[4].c_str()));
 		floatingCard->SetDurability(std::atoi(it[5].c_str()));
+		floatingCard->SetText(it[6]);
 
 		renderTradingCard(GetRenderer(), floatingCard, headerFont, textFont);
 
@@ -118,7 +120,7 @@ void MockupScene::MouseWheel(SDL_MouseWheelEvent const& event) {
 	if (event.y < 0 && selection > 0) {
 		selection--;
 	}
-	if (event.y > 0 && selection < 29) {
+	if (event.y > 0 && selection < 31) { //zero indexed
 		selection++;
 	}
 	std::cout << selection << std::endl;

@@ -73,6 +73,14 @@ int TradingCard::GetDurability() const {
 	return durability;
 }
 
+TradingCard::Rarity TradingCard::SetRarity(TradingCard::Rarity r) {
+	return rarity = r;
+}
+
+TradingCard::Rarity TradingCard::GetRarity() const {
+	return rarity;
+}
+
 //-------------------------
 //graphics
 //-------------------------

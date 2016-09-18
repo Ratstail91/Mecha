@@ -23,6 +23,8 @@
 
 #include "image.hpp"
 
+#include <string>
+
 class TradingCard {
 public:
 	enum Type {
@@ -31,6 +33,12 @@ public:
 		COMMAND,
 		TOWER,
 		MECHA_TOWER
+	};
+
+	enum Rarity {
+		COMMON,
+		UNCOMMON,
+		RARE
 	};
 
 	TradingCard() = default;
@@ -55,6 +63,9 @@ public:
 	int SetDurability(int i);
 	int GetDurability() const;
 
+	Rarity SetRarity(Rarity r);
+	Rarity GetRarity() const;
+
 	//graphics
 	int SetPosX(int i);
 	int GetPosX() const;
@@ -76,6 +87,7 @@ private:
 	std::string text;
 	int power = 0;
 	int durability = 0;
+	Rarity rarity;
 
 	//graphics
 	int posX = 0;
