@@ -180,10 +180,10 @@ void Application::ProcessSceneSignal(SceneSignal signal) {
 	ClearScene();
 
 	switch(signal) {
-		case SceneSignal::FIRST:
 		case SceneSignal::EXAMPLE_SCENE:
 			activeScene = new ExampleScene();
 		break;
+		case SceneSignal::FIRST:
 		case SceneSignal::MOCKUP_SCENE:
 			activeScene = new MockupScene();
 		break;

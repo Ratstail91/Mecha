@@ -1,6 +1,7 @@
 #name;type;cost;text;power;durability
 Radio Tower;Basic Tower;;Provides 1u (1 unit of bandwidth. Play only one Tower/card each turn).;;1
 Radio Relay;Mecha Tower;1;(Radio Relay counts as a Mecha and a Tower. Play only/one Tower card each turn.)/ /Play this card only on a space with a Radio Tower./Destroy that tower./ /Provides 1u for each unit you control named Radio Relay/(1 unit of bandwidth).;0;2
+Communications Hub;Tower;;Play this card only on a space with a Tower. Destroy that Tower./ /When you play this card, if you control another Communications Hub, destroy that Tower./ /Provides 2u (2 units of bandwidth).;;1
 Attack Vector;Mecha;2;(No abilities.);2;1
 Mega Bot;Mecha;3;(No abilities.);3;2
 Class Ganon;Mecha;4;(No abilities.);4;1
@@ -16,6 +17,7 @@ Jager;Mecha;6;Armour 3 (This unit enters the battlefield with three/Armour count
 Insect Drone;Mecha;2;Flight (This unit can't be attacked except by units with/flight or reach).;1;1
 Wasp Drone;Mecha;3;Flight (This unit can't be attacked except by units with/flight or reach)./ /When this mecha attacks, the target can't attack next/turn.;1;1
 Magpie Drone;Mecha;3;Flight (This unit can't be attacked except by units with/flight or reach)./ /When this mecha attacks, the target must move next turn/if possible.;1;1
+Swarm Drone;Mecha;2;Swarm Drone's base power is 4 as long as you control/three or more Mechas.;1;3
 Attack Orders;Command;;One mecha you control can attack an extra time this/turn.;;
 Marching Orders;Command;;One mecha you control can move an extra space this/turn.;;
 Ramp Orders;Command;;One mecha you control gains Reach this turn (That unit/may attack units with flight).;;
@@ -24,3 +26,8 @@ Tunnel Warfare;Command;;Discard another card from your hand. If you do, any one/
 Road Works;Command;;Play this card on the battlefield with 2 time counters on/it (Remove one time counter at the beginning of each/turn)./ /At the beginning of your main phase, if there are no time/counters on this card, neighbouring mechas gain Speed 3/this turn (those unit may move up to three spaces this/turn).;;
 Espionage;Command;;Look at any one player's hand, then draw a card.;;
 Ironhide;Command;;Put two Armour counters on any one mecha in your/entry zone (If a unit would take damage while it has any/Armour counters, prevent that damage and remove an/Armour counter).;;
+Mortar Rain;Command;;Destroy any one Mecha.;;
+EMP Blast;Command;;Destroy all towers (including mecha towers).;;
+Radio Silence;Command;;Destroy all towers (including mecha towers)./ /Each player reveals their hands and discards all towers (including mecha towers).;;
+Interdiction;Command;;Cancel any one card. (When a player plays a card, you may play this card to prevent that card's effects. That card is discarded).;;
+Salvage;Command;;Return any one card from your discard pile to your hand.;;

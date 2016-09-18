@@ -28,34 +28,6 @@
 #include <stdexcept>
 #include <string>
 
-//utility functions
-#ifndef stricmp
-//https://thedarkgod.wordpress.com/2009/08/12/stricmp-comparing-two-strings-in-c-case-insensitively/
-int stricmp (const char *s1, const char *s2) {
-	if (s1 == NULL) return s2 == NULL ? 0 : -(*s2);
-	if (s2 == NULL) return *s1;
-
-	char c1, c2;
-	while ((c1 = tolower (*s1)) == (c2 = tolower (*s2))) {
-		if (*s1 == '\0') break;
-		++s1; ++s2;
-	}
-
-	return c1 - c2;
-}
-#endif
-
-TradingCard::Type readType(std::string s) {
-	if (!stricmp(s.c_str(), "basic tower")) return TradingCard::Type::BASIC_TOWER;
-	if (!stricmp(s.c_str(), "mecha")) return TradingCard::Type::MECHA;
-	if (!stricmp(s.c_str(), "command")) return TradingCard::Type::COMMAND;
-	if (!stricmp(s.c_str(), "tower")) return TradingCard::Type::TOWER;
-	if (!stricmp(s.c_str(), "mecha tower")) return TradingCard::Type::MECHA_TOWER;
-	std::ostringstream msg;
-	msg << "Failed to read the card type: " << s;
-	throw(std::runtime_error(msg.str()));
-}
-
 MockupScene::MockupScene() {
 	//textures
 	textureLoader.Load(GetRenderer(), "rsc\\", "tower.png");
@@ -146,7 +118,7 @@ void MockupScene::MouseWheel(SDL_MouseWheelEvent const& event) {
 	if (event.y < 0 && selection > 0) {
 		selection--;
 	}
-	if (event.y > 0 && selection < 24) {
+	if (event.y > 0 && selection < 29) {
 		selection++;
 	}
 	std::cout << selection << std::endl;
