@@ -76,6 +76,8 @@ MockupScene::~MockupScene() {
 	while(cardMasterList.Peek()) {
 		delete cardMasterList.Pop();
 	}
+	TTF_CloseFont(headerFont);
+	TTF_CloseFont(textFont);
 }
 
 //-------------------------
