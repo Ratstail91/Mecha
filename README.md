@@ -1,5 +1,9 @@
 A card game prototype based around mecha.
 
+## Tools
+
+* ImageMagick Convert - www.imagemagick.org
+
 ## Copyright
 
 Copyright (c) 2016 Kayne Ruse

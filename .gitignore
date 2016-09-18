@@ -12,6 +12,7 @@ Out/
 release/
 debug/
 out/
+img/
 
 #Project generated files
 *.db
@@ -20,5 +21,5 @@ out/
 *.exe
 
 #Shell files
-*.bat
+#*.bat
 *.sh
