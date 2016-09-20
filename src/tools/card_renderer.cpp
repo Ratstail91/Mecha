@@ -12,6 +12,8 @@
 #include <iostream>
 #include <sstream>
 
+//TODO: Radio Tower needs to be mass produced
+
 extern int stricmp(const char*, const char*);
 extern char* itoa(int value, char* str, int base);
 
