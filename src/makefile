@@ -33,6 +33,7 @@ all: $(OBJ) $(OUT)
 	$(MAKE) -C TurtleGUI INCLUDES+=. INCLUDES+=.. INCLUDES+=../utilities
 	$(MAKE) -C utilities
 	$(CXX) $(CXXFLAGS) -o $(OUT) $(OBJ) $(LIBS)
+	$(CXX) $(CXXFLAGS) -o $(OUTDIR)/card_renderer tools/card_renderer.cpp $(filter-out obj/main.o, $(OBJ)) $(LIBS)
 
 $(OBJ): | $(OBJDIR)
 
