@@ -12,7 +12,19 @@
 #include <iostream>
 #include <sstream>
 
-typedef CardList<TradingCard, NullSorter<TradingCard>, CardShuffler<TradingCard>> CardListType;
+extern int stricmp(const char*, const char*);
+extern char* itoa(int value, char* str, int base);
+
+template<typename Card>
+class AlphabetSorter : public CardSorter<Card> {
+	//DOCS: reverse, since the linked list inherently reverses shit.
+protected:
+	int Compare(Card* lhs, Card* rhs) override {
+		return stricmp(lhs->GetName().c_str(), rhs->GetName().c_str());
+	}
+};
+
+typedef CardList<TradingCard, AlphabetSorter<TradingCard>, CardShuffler<TradingCard>> CardListType;
 
 enum class Mode {
 	BASIC,
@@ -21,9 +33,6 @@ enum class Mode {
 
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
-
-extern int stricmp(const char*, const char*);
-extern char* itoa(int value, char* str, int base);
 
 //-------------------------
 //specialized card saving utilities
@@ -68,6 +77,25 @@ SDL_Surface* makeSurfaceFromCard(SDL_Renderer* const renderer, TradingCard* card
 
 	return surface;
 }
+
+//a custom written blit function, because the built-in one won't work for some reason
+void customBlit(SDL_Surface* src, SDL_Rect* srcRect, SDL_Surface* dst, SDL_Rect* dstRect) {
+	SDL_LockSurface(src);
+	SDL_LockSurface(dst);
+
+	//iterate over each pixel in src
+	for (int i = srcRect->x; i < srcRect->w; i++) {
+		for (int j = srcRect->y; j < srcRect->h; j++) {
+			((int*)dst->pixels)[j*dst->w + i + dst->w*dstRect->y + dstRect->x] = ((int*)src->pixels)[j*src->w + i];
+		}
+	}
+
+	SDL_UnlockSurface(src);
+	SDL_UnlockSurface(dst);
+}
+
+#undef SDL_BlitSurface
+#define SDL_BlitSurface customBlit
 
 void saveCardArray(SDL_Renderer* const, CardListType cardList) {
 	TradingCard* masterIterator = cardList.Peek();
@@ -141,7 +169,7 @@ void saveCardArray(SDL_Renderer* const, CardListType cardList) {
 		}
 
 		char nameBuffer[32];
-		SDL_SaveBMP(targetSurface, (std::string(itoa(nameCounter, nameBuffer, 10)) + ".bmp").c_str());
+		SDL_SaveBMP(targetSurface, (std::string() + "img/" + std::string(itoa(nameCounter, nameBuffer, 10)) + ".bmp").c_str());
 		nameCounter++;
 
 		SDL_FreeSurface(targetSurface);
@@ -159,6 +187,21 @@ void init(int argc, char** argv) {
 	//create and check the window
 	int screenWidth = 800;
 	int screenHeight = 600;
+
+	//Setting up SDL2
+	if (SDL_Init(0)) {
+		std::ostringstream msg;
+		msg << "Failed to initialize SDL2: " << SDL_GetError();
+		throw(std::runtime_error(msg.str()));
+	}
+
+	//setting up SDL2_ttf
+	if (TTF_Init()) {
+		std::ostringstream msg;
+		msg << "Failed to initialize SDL_ttf 2.0: " << SDL_GetError();
+		throw(std::runtime_error(msg.str()));
+	}
+
 
 	window = SDL_CreateWindow(
 		"Example Caption",
@@ -186,13 +229,6 @@ void init(int argc, char** argv) {
 	//screen scaling
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
 	SDL_RenderSetLogicalSize(renderer, screenWidth, screenHeight);
-
-	//setting up SDL2_ttf
-	if (TTF_Init()) {
-		std::ostringstream msg;
-		msg << "Failed to initialize SDL_ttf 2.0: " << SDL_GetError();
-		throw(std::runtime_error(msg.str()));
-	}
 }
 
 void proc(int argc, char** argv) {
@@ -240,6 +276,9 @@ void proc(int argc, char** argv) {
 		cardList.Push(floatingCard);
 	}
 
+	//Sort the cards
+	cardList.Sort();
+
 	//process each card based on mode
 	switch(mode) {
 		case Mode::BASIC:
@@ -263,9 +302,11 @@ void proc(int argc, char** argv) {
 
 void quit(int argc, char** argv) {
 	//close the APIs
-	TTF_Quit();
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+
+	TTF_Quit();
+	SDL_Quit();
 
 	//destroy the singletons
 	TextureLoader::DeleteSingleton();
