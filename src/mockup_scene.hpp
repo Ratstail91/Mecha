@@ -60,11 +60,10 @@ private:
 	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 
 	//members
-	typedef CardList<TradingCard, NullSorter<TradingCard>, CardShuffler<TradingCard>> CardList;
 	TTF_Font* headerFont = nullptr;
 	TTF_Font* textFont = nullptr;
 
-	CardList cardMasterList;
+	CardList<TradingCard, NullSorter<TradingCard>, CardShuffler<TradingCard>> cardMasterList;
 
 	int selection = 24;
 };
