@@ -21,26 +21,14 @@
 */
 #pragma once
 
+#include "trading_card_types.hpp"
+
 #include "image.hpp"
 
 #include <string>
 
 class TradingCard {
 public:
-	enum Type {
-		BASIC_TOWER,
-		MECHA,
-		COMMAND,
-		TOWER,
-		MECHA_TOWER
-	};
-
-	enum Rarity {
-		COMMON,
-		UNCOMMON,
-		RARE
-	};
-
 	TradingCard() = default;
 	~TradingCard() = default;
 
@@ -48,8 +36,8 @@ public:
 	std::string SetName(std::string name);
 	std::string GetName() const;
 
-	Type SetType(Type t);
-	Type GetType() const;
+	TradingCardTypes SetTypes(TradingCardTypes t);
+	TradingCardTypes GetTypes() const;
 
 	int SetCost(int i);
 	int GetCost() const;
@@ -62,9 +50,6 @@ public:
 
 	int SetDurability(int i);
 	int GetDurability() const;
-
-	Rarity SetRarity(Rarity r);
-	Rarity GetRarity() const;
 
 	//graphics
 	int SetPosX(int i);
@@ -82,12 +67,11 @@ public:
 private:
 	//card components
 	std::string name;
-	Type type;
+	TradingCardTypes types;
 	int cost = 0;
 	std::string text;
 	int power = 0;
 	int durability = 0;
-	Rarity rarity;
 
 	//graphics
 	int posX = 0;

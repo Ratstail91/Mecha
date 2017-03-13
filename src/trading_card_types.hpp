@@ -1,4 +1,4 @@
-/* Copyright: (c) Kayne Ruse 2016
+/* Copyright: (c) Kayne Ruse 2016-2017
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -21,40 +21,10 @@
 */
 #pragma once
 
-#include "trading_card.hpp"
-
-#include <array>
-
-class Battlefield {
-public:
-	static constexpr int BATTLEFIELD_WIDTH = 5;
-	static constexpr int BATTLEFIELD_HEIGHT = 5;
-
-	Battlefield();
-	~Battlefield();
-
-	void DrawTo(SDL_Renderer* const, int camX, int camY, double zoom);
-
-	//interact with the field
-	TradingCard* PushCard(TradingCard* const, int x, int y);
-	TradingCard* FindCard(int x, int y);
-	TradingCard* PopCard(int x, int y);
-
-	//accessors & mutators
-	int SetX(int i);
-	int SetY(int i);
-	int SetCardW(int i);
-	int SetCardH(int i);
-
-	int GetX() const;
-	int GetY() const;
-	int GetCardW() const;
-	int GetCardH() const;
-
-private:
-	TradingCard*** fieldArray;
-	int posX = 0;
-	int posY = 0;
-	int cardW = 0;
-	int cardH = 0;
+struct TradingCardTypes {
+	bool basic = false;
+	bool singleton = false;
+	bool command = false;
+	bool mecha = false;
+	bool tower = false;
 };

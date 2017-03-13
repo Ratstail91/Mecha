@@ -65,5 +65,5 @@ private:
 
 	CardList<TradingCard, NullSorter<TradingCard>, CardShuffler<TradingCard>> cardMasterList;
 
-	int selection = 24;
+	int selection = 0;
 };

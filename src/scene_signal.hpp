@@ -28,6 +28,5 @@ enum SceneSignal {
 	FIRST = 1,
 
 	//custom scenes
-	EXAMPLE_SCENE,
 	MOCKUP_SCENE
 };

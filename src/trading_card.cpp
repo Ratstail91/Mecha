@@ -33,12 +33,12 @@ std::string TradingCard::GetName() const {
 	return name;
 }
 
-TradingCard::Type TradingCard::SetType(Type t) {
-	return type = t;
+TradingCardTypes TradingCard::SetTypes(TradingCardTypes t) {
+	return types = t;
 }
 
-TradingCard::Type TradingCard::GetType() const {
-	return type;
+TradingCardTypes TradingCard::GetTypes() const {
+	return types;
 }
 
 int TradingCard::SetCost(int i) {
@@ -71,14 +71,6 @@ int TradingCard::SetDurability(int i) {
 
 int TradingCard::GetDurability() const {
 	return durability;
-}
-
-TradingCard::Rarity TradingCard::SetRarity(TradingCard::Rarity r) {
-	return rarity = r;
-}
-
-TradingCard::Rarity TradingCard::GetRarity() const {
-	return rarity;
 }
 
 //-------------------------

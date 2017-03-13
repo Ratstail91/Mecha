@@ -1,33 +1,51 @@
-#Format 2: rarity;name;type;cost;power;durability;text
-common;Attack Orders;command;0;0;0;One mecha you control can attack an extra time this/turn.
-common;Attack Vector;mecha;2;2;1;(No abilities.)
-common;Bot-a-pult;mecha;2;2;2;Reach (This unit may attack units with flight)./ /Sacrifice a neighbouring mecha you control. If you do,/this mecha gains Range 3 this turn (This unit may attack/any unit within three spaces this turn).
-common;Cap Gun;mecha;1;1;1;Pierce (This unit ignores Armour counters)./ /Reach (This unit may attack units with flight).
-common;Class Ganon;mecha;4;4;1;(No abilities.)
-common;Communications Hub;tower;0;0;1;Play this card only on a space with a Tower. Destroy that/Tower./ /When you play this card, if you control another/Communications Hub, destroy that Tower./ /Provides 2u (2 units of bandwidth).
-common;Dragon;mecha;4;4;4;Armour 2 (This unit enters the battlefield with two/Armour counters. If it would take damage while it has/any Armour counters, prevent that damage and remove/an Armour counter)./ /This mecha may not attack and move in the same turn.
-common;EMP Blast;command;0;0;0;Destroy all towers (including mecha towers).
-common;Espionage;command;0;0;0;Look at any one player's hand, then draw a card.
-common;Insect Drone;mecha;2;1;1;Flight (This unit can't be attacked except by units with/flight or reach).
-common;Interdiction;command;0;0;0;Cancel any one card. (When a player plays a card, you/may play this card to prevent that card's effects. That/card is discarded).
-common;Ironhide;command;0;0;0;Put two Armour counters on any one mecha in your/entry zone (If a unit would take damage while it has any/Armour counters, prevent that damage and remove an/Armour counter).
-common;Jager;mecha;6;6;6;Armour 3 (This unit enters the battlefield with three/Armour counters. If it would take damage while it has/any Armour counters, prevent that damage and remove/an Armour counter)./ /Reach (This unit may attack units with flight).
-common;Longbow;mecha;2;1;1;Pierce (This unit ignores Armour counters)./ /Range 3 (This unit may attack any unit within three/spaces).
-common;Magpie Drone;mecha;3;1;1;Flight (This unit can't be attacked except by units with/flight or reach)./ /When this mecha attacks, the target must move next turn/if possible.
-common;Marching Orders;command;0;0;0;One mecha you control can move an extra space this/turn.
-common;Mega Bot;mecha;3;3;2;(No abilities.)
-common;Mod Bot;mecha;2;1;2;Sacrifice a neighbouring mecha you control. If you do,/add that unit's durability to this mecha.
-common;Mortar Rain;command;0;0;0;Destroy any one Mecha.
-common;Radio Relay;mecha tower;1;0;2;(Radio Relay counts as a Mecha and a Tower. Play only/one Tower card each turn.)/ /Play this card only on a space with a Radio Tower./Destroy that tower./ /Provides 1u for each unit you control named Radio Relay/(1 unit of bandwidth).
-common;Radio Silence;command;0;0;0;Destroy all towers (including mecha towers)./ /Each player reveals their hands and discards all towers/(including mecha towers).
-common;Radio Tower;basic tower;0;0;1;Provides 1u (1 unit of bandwidth. Play only one Tower/card each turn).
-common;Ramp Orders;command;0;0;0;One mecha you control gains Reach this turn (That unit/may attack units with flight).
-common;Road Works;command;0;0;0;Play this card on the battlefield with 2 time counters on/it (Remove one time counter at the beginning of each/turn)./ /At the beginning of your main phase, if there are no time/counters on this card, neighbouring mechas gain Speed 3/this turn (those unit may move up to three spaces this/turn).
-common;Salvage;command;0;0;0;Return any one card from your discard pile to your hand.
-common;Shortbow;mecha;1;1;1;Pierce (This unit ignores Armour counters)./ /Range 2 (This unit may attack any unit within two/spaces).
-common;Stonewall;mecha;1;0;6;This mecha can't attack. When this mecha moves, it can't/move next turn.
-common;Swarm Drone;mecha;2;1;3;Swarm Drone's base power is 4 as long as you control/three or more Mechas.
-common;Tunnel Warfare;command;0;0;0;Discard another card from your hand. If you do, any one/mecha you control can move an extra space this turn.
-common;Turtle;mecha;2;2;3;Armour 1 (This unit enters the battlefield with one/Armour counter. If it would take damage while it has/any Armour counters, prevent that damage and remove/an Armour counter)./ /This mecha may not attack and move in the same turn.
-common;Virus;command;0;0;0;Sacrifice a Tower you control. If you do, one mecha an/opponent controls can't attack this turn.
-common;Wasp Drone;mecha;3;1;1;Flight (This unit can't be attacked except by units with/flight or reach)./ /When this mecha attacks, the target can't attack next/turn.
+Card Name;Cost;Type;Effect / Reminder Text;Power;Durability
+Radio Tower;;Basic Tower;Provides 1u (1 unit of bandwidth. Play only one Tower card each turn).;;2
+Radio Relay;0;Mecha Tower;(Radio Relay counts as a Mecha and a Tower. Play only one Tower card each turn.) Play this card only on a space with a Radio Tower. Destroy that tower. Provides 1u for each unit you control named Radio Relay (1 unit of bandwidth).;0;2
+Attack Vector;1;Mecha;(No abilities.);2;1
+Mega Bot;2;Mecha;(No abilities.);3;2
+Class Ganon;3;Mecha;(No abilities.);4;1
+Mod Bot;2;Mecha;Sacrifice a neighbouring Mecha you control: add that unit's durability to this Mecha.;1;2
+Cap Gun;1;Mecha;Pierce (This unit ignores Armour counters). Reach (This unit may attack units with Flight).;1;1
+Shortbow;1;Mecha;Pierce (This unit ignores Armour counters). Range 2 (This unit may attack any unit within two spaces).;1;1
+Longbow;2;Mecha;Pierce (This unit ignores Armour counters). Range 3 (This unit may attack any unit within three spaces).;1;1
+Bot-a-pult;2;Mecha;Reach (This unit may attack units with Flight). Sacrifice a neighbouring Mecha you control: this Mecha gains Range 3 this turn (This unit may attack any unit within three spaces this turn).;2;2
+Stonewall;1;Mecha;This Mecha can't attack. When this Mecha moves, it can't move next turn.;0;6
+Turtle;2;Mecha;Armour 1 (This unit enters the battlefield with one Armour counter. If it would take damage while it has any Armour counters, prevent that damage and remove an Armour counter). This Mecha may not attack and move in the same turn.;2;3
+Dragon;4;Mecha;Armour 2 (This unit enters the battlefield with two Armour counters. If it would take damage while it has any Armour counters, prevent that damage and remove an Armour counter). This Mecha may not attack and move in the same turn.;4;4
+Jager;6;Singleton Mecha;Armour 3 (This unit enters the battlefield with three Armour counters. If it would take damage while it has any Armour counters, prevent that damage and remove an Armour counter). Reach (This unit may attack units with Flight).;6;6
+Insect Drone;2;Mecha;Flight (This unit can't be attacked except by units with Flight or Reach).;1;1
+Wasp Drone;3;Mecha;Flight (This unit can't be attacked except by units with Flight or Reach). When this Mecha attacks, the target can't attack next turn.;1;1
+Magpie Drone;3;Mecha;Flight (This unit can't be attacked except by units with Flight or Reach). When this Mecha attacks, the target must move next turn if possible.;1;1
+Attack Orders;;Command;One target Mecha you control can attack an extra time this turn.;;
+Marching Orders;;Command;One target Mecha you control can move an extra space this turn.;;
+Ramp Orders;;Command;One target Mecha you control gains Reach this turn (That unit may attack units with Flight).;;
+Virus;;Command;Sacrifice a Tower you control. If you do, one target Mecha an opponent controls can't attack this turn.;;
+Tunnel Warfare;;Command;Discard another card from your hand. If you do, one target Mecha you control can move an extra space this turn.;;
+Road Works;;Command;Play this card on the battlefield with 2 time counters on it (Remove one time counter at the beginning of each turn). At the beginning of your main phase, if there are no time counters on this card, Mechas on or adjacent to this command gain Speed 3 this turn (those units may move up to three spaces this turn).;;
+Espionage;;Command;Look at one target player's hand, then draw a card.;;
+Ironhide;;Command;Put two Armour counters on one target Mecha you control in your entry zone (If a unit would take damage while it has any Armour counters, prevent that damage and remove an Armour counter).;;
+Skipper;2;Mecha;Haste (this Mecha can move and attack on the same turn it's played).;2;2
+Cruiser;3;Mecha;Haste (this Mecha can move and attack on the same turn it's played).;3;3
+Corvette;4;Mecha;Haste (this Mecha can move and attack on the same turn it's played).;4;4
+Cruise Missle;1;Mecha;Haste (this Mecha can move and attack on the same turn it's played). After this Mecha attacks, destroy it.;4;1
+Preparations;;Command;One target Mecha you control gains haste this turn (that Mecha can move and attack as normal if you played it this turn).;;
+Weapons Cache;;Trigger Command;Draw two cards.;;
+Drone Strike;;Trigger Command;Deal 2 damage to any target unit (including Towers).;;
+Jury Rigging;;Trigger Command;You may play a Mecha that costs 2 or less from your hand in your entry zone (it can't move or attack this turn unless it has haste).;;
+Heavy Fire;;Trigger Command;Remove all Armour counters from one target unit.;;
+Recall;;Trigger Command;Return one target Mecha to it's owner's hand.;;
+Hidden Cache;;Command;If you discard this card, draw three cards.;;
+EMP Blast;;Command;Destroy all Towers (including Mecha Towers).;;
+Sabotage;;Command;Sacrifice a Tower you control. Destroy one target Mecha.;;
+Reparations;;Command;If a Mecha you control is destroyed, destroy one target Mecha.;;
+The Vice;3;Mecha;As long as this unit is in play, each player's maximum hand size is reduced by 2.;4;4
+Rampart;0;Mecha Tower;Provides 1u (1 unit of bandwidth. Play only one Tower card each turn). This Mecha Tower can't move. Adjacent Mechas you control can't be targeted by attacks.;0;2
+Turret;0;Mecha Tower;Provides 1u (1 unit of bandwidth. Play only one Tower card each turn). This Mecha Tower can't move.;4;2
+Engineered Earthquake;;Command;Deal 2 damage to all non-flying Mechas (Armour counters protect against this damage as normal).;;
+Interdictor;3;Mecha;Flight (This unit can't be attacked except by units with Flight or Reach). The cost of all enemy Mechas is increased by 1 (including Mechas in their hand).;1;1
+Mineshaft;;Command;Play this card on the battlefield with 2 time counters on it (Remove one time counter at the beginning of each turn). At the beginning of your draw phase, if there are no time counters on this card, draw one additional card this turn.;;
+Potshot;3;Mecha;When a Tower you control is destroyed, deal 1 damage to one target unit an opponent controls.;2;3
+Gutshot;3;Mecha;When a player plays a command, they must sacrifice one Tower they control.;2;2
+Snapshot;;Command;Return two Towers from your graveyard to the battlefield under your control.;;
+Longshot;;Singleton Command;Return two Commands from your graveyard to your hand.;;
+Signal Jamming;;Command;One target player discards their hand.;;

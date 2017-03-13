@@ -55,53 +55,18 @@ int stricmp (const char *s1, const char *s2) {
 }
 #endif
 
-TradingCard::Type readType(std::string s) {
-	if (!stricmp(s.c_str(), "basic tower"))	return TradingCard::Type::BASIC_TOWER;
-	if (!stricmp(s.c_str(), "mecha"))		return TradingCard::Type::MECHA;
-	if (!stricmp(s.c_str(), "command"))		return TradingCard::Type::COMMAND;
-	if (!stricmp(s.c_str(), "tower"))		return TradingCard::Type::TOWER;
-	if (!stricmp(s.c_str(), "mecha tower"))	return TradingCard::Type::MECHA_TOWER;
-	std::ostringstream msg;
-	msg << "Failed to read the card type: " << s;
-	throw(std::runtime_error(msg.str()));
+TradingCardTypes readTypes(std::string s) {
+	//TODO: empty
 }
 
-std::string writeType(TradingCard::Type type) {
-	switch (type) {
-		case TradingCard::Type::BASIC_TOWER:	return "basic tower";
-		case TradingCard::Type::MECHA:			return "mecha";
-		case TradingCard::Type::COMMAND:		return "command";
-		case TradingCard::Type::TOWER:			return "tower";
-		case TradingCard::Type::MECHA_TOWER:	return "mecha tower";
-	}
-	std::ostringstream msg;
-	msg << "Failed to write the card type: " << type;
-	throw(std::runtime_error(msg.str()));
-}
-
-TradingCard::Rarity readRarity(std::string s) {
-	if (!stricmp(s.c_str(), "common"))		return TradingCard::Rarity::COMMON;
-	if (!stricmp(s.c_str(), "uncommon"))	return TradingCard::Rarity::UNCOMMON;
-	if (!stricmp(s.c_str(), "rare"))		return TradingCard::Rarity::RARE;
-	std::ostringstream msg;
-	msg << "Failed to read the card rarity: " << s;
-	throw(std::runtime_error(msg.str()));
-}
-
-std::string writeRarity(TradingCard::Rarity rarity) {
-	switch (rarity) {
-		case TradingCard::Rarity::COMMON:	return "common";
-		case TradingCard::Rarity::UNCOMMON:	return "uncommon";
-		case TradingCard::Rarity::RARE:		return "rare";
-	}
-	std::ostringstream msg;
-	msg << "Failed to write the card rarity: " << rarity;
-	throw(std::runtime_error(msg.str()));
+std::string writeTypes(TradingCardTypes types) {
+	//TODO: empty
 }
 
 void renderTradingCard(SDL_Renderer* const renderer, TradingCard* card, TTF_Font* headerFont, TTF_Font* textFont) {
 	//singleton
-	TextureLoader& textureLoader = TextureLoader::GetSingleton();
+	//TODO: dummied out
+/*	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 
 	//background image
 	SDL_Texture* backTexture = nullptr;
@@ -168,4 +133,4 @@ void renderTradingCard(SDL_Renderer* const renderer, TradingCard* card, TTF_Font
 
 	//cleanup
 	SDL_SetRenderTarget(renderer, nullptr);
-}
+*/}
