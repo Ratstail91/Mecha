@@ -1,4 +1,3 @@
-Card Name;Cost;Type;Effect / Reminder Text;Power;Durability
 Radio Tower;;Basic Tower;Provides 1u (1 unit of bandwidth. Play only one Tower card each turn).;;2
 Radio Relay;0;Mecha Tower;(Radio Relay counts as a Mecha and a Tower. Play only one Tower card each turn.) Play this card only on a space with a Radio Tower. Destroy that tower. Provides 1u for each unit you control named Radio Relay (1 unit of bandwidth).;0;2
 Attack Vector;1;Mecha;(No abilities.);2;1

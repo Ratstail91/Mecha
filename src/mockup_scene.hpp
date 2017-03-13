@@ -56,6 +56,8 @@ private:
 	//window events
 	void WindowResized(SDL_WindowEvent const& event) override;
 
+	void RenderList();
+
 	//singleton references
 	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 

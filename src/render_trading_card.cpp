@@ -55,34 +55,34 @@ int stricmp (const char *s1, const char *s2) {
 }
 #endif
 
-TradingCardTypes readTypes(std::string s) {
-	//TODO: empty
-}
-
-std::string writeTypes(TradingCardTypes types) {
-	//TODO: empty
-}
-
 void renderTradingCard(SDL_Renderer* const renderer, TradingCard* card, TTF_Font* headerFont, TTF_Font* textFont) {
+	//TODO: image file
+
 	//singleton
-	//TODO: dummied out
-/*	TextureLoader& textureLoader = TextureLoader::GetSingleton();
+	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 
 	//background image
 	SDL_Texture* backTexture = nullptr;
 
-	switch(card->GetType()) {
-		case TradingCard::Type::BASIC_TOWER:
-		case TradingCard::Type::TOWER:
-			backTexture = textureLoader.Find("tower.png");
-		break;
-		case TradingCard::Type::MECHA:
-		case TradingCard::Type::MECHA_TOWER:
-			backTexture = textureLoader.Find("mecha.png");
-		break;
-		case TradingCard::Type::COMMAND:
-			backTexture = textureLoader.Find("command.png");
-		break;
+	const TradingCardTypes types = card->GetTypes();
+
+	//forget singleton overlay for now
+	if (types.GetBasic() && types.GetTower()) {
+		backTexture = textureLoader.Find("Basic Tower.png");
+	}
+	if (types.GetMecha() && types.GetTower()) {
+		backTexture = textureLoader.Find("Mecha Tower.png");
+	}
+
+	if (types.GetTrigger() && types.GetCommand()) {
+		backTexture = textureLoader.Find("Trigger Command.png");
+	}
+	if (types.GetCommand() && !types.GetTrigger()) {
+		backTexture = textureLoader.Find("Command.png");
+	}
+
+	if (types.GetMecha() && !types.GetTower()) {
+		backTexture = textureLoader.Find("Mecha.png");
 	}
 
 	if (backTexture == nullptr) {
@@ -95,25 +95,34 @@ void renderTradingCard(SDL_Renderer* const renderer, TradingCard* card, TTF_Font
 	card->GetImage()->Create(renderer, w, h);
 	SDL_SetRenderTarget(renderer, card->GetImage()->GetTexture());
 
-	//variables
-	SDL_Texture* tmpPtr = nullptr;
-	SDL_Rect dclip;
-
 	//render each component
 
 	//background
 	SDL_RenderCopy(renderer, backTexture, nullptr, nullptr);
 
-	//name
-	renderTextDirect(renderer, headerFont, {255, 255, 255, 255}, card->GetName(), 20, 15);
+	//singleton overlay
+	if (types.GetSingleton()) {
+		SDL_RenderCopy(renderer, textureLoader.Find("Singleton.png"), nullptr, nullptr);
+	}
 
-	if (card->GetType() == TradingCard::Type::MECHA || card->GetType() == TradingCard::Type::MECHA_TOWER) {
+	//name
+	renderTextDirect(renderer, headerFont, {0, 0, 0, 255}, card->GetName(), 60, 10);
+
+	if (types.GetMecha()) {
 		char tmpcstr[16];
 
 		//cost, power, durability
-		renderTextDirect(renderer, headerFont, {255, 255, 255, 255}, itoa(card->GetCost(), tmpcstr, 10), 25, 55);
-		renderTextDirect(renderer, headerFont, {255, 255, 255, 255}, itoa(card->GetPower(), tmpcstr, 10), 25, 55+24);
-		renderTextDirect(renderer, headerFont, {255, 255, 255, 255}, itoa(card->GetDurability(), tmpcstr, 10), 25, 55+48);
+		renderTextDirect(renderer, headerFont, {0, 0, 0, 255}, itoa(card->GetCost(), tmpcstr, 10), 15, 10);
+		renderTextDirect(renderer, headerFont, {0, 0, 0, 255}, itoa(card->GetPower(), tmpcstr, 10), 15, 45);
+		renderTextDirect(renderer, headerFont, {0, 0, 0, 255}, itoa(card->GetDurability(), tmpcstr, 10), 15, 70);
+	}
+
+	//type line
+	if (!types.GetBasic()) {
+		renderTextDirect(renderer, textFont, {0, 0, 0, 255}, types.Stringify(), 20, 295);
+	}
+	else {
+		renderTextDirect(renderer, textFont, {0, 0, 0, 255}, types.Stringify(), 20, 495);
 	}
 
 	//text, splitting the string
@@ -127,10 +136,10 @@ void renderTradingCard(SDL_Renderer* const renderer, TradingCard* card, TTF_Font
 
 	int increment = 0;
 	for (auto& it : linesList) {
-		renderTextDirect(renderer, textFont, {0, 0, 0, 255}, it, 20, 260 + increment * 16);
+		renderTextDirect(renderer, textFont, {0, 0, 0, 255}, it, 20, 325 + increment * 16);
 		increment++;
 	}
 
 	//cleanup
 	SDL_SetRenderTarget(renderer, nullptr);
-*/}
+}

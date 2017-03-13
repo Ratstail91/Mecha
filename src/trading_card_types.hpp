@@ -21,9 +21,36 @@
 */
 #pragma once
 
-struct TradingCardTypes {
+#include <string>
+
+class TradingCardTypes {
+public:
+	TradingCardTypes Parse(std::string);
+	std::string Stringify() const;
+
+	//accessors & mutators
+	bool SetBasic(bool b);
+	bool GetBasic() const;
+
+	bool SetSingleton(bool b);
+	bool GetSingleton() const;
+
+	bool SetTrigger(bool b);
+	bool GetTrigger() const;
+
+	bool SetCommand(bool b);
+	bool GetCommand() const;
+
+	bool SetMecha(bool b);
+	bool GetMecha() const;
+
+	bool SetTower(bool b);
+	bool GetTower() const;
+
+private:
 	bool basic = false;
 	bool singleton = false;
+	bool trigger = false;
 	bool command = false;
 	bool mecha = false;
 	bool tower = false;

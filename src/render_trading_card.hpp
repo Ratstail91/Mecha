@@ -27,7 +27,4 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 
-TradingCardTypes readTypes(std::string s);
-std::string writeTypes(TradingCardTypes type);
-
 void renderTradingCard(SDL_Renderer* const, TradingCard* card, TTF_Font* headerFont, TTF_Font* textFont);
