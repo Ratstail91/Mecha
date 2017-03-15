@@ -30,12 +30,12 @@
 
 MockupScene::MockupScene() {
 	//textures
-	textureLoader.Load(GetRenderer(), "rsc/cardbacks/", "Basic Tower.png");
-	textureLoader.Load(GetRenderer(), "rsc/cardbacks/", "Command.png");
-	textureLoader.Load(GetRenderer(), "rsc/cardbacks/", "Mecha Tower.png");
-	textureLoader.Load(GetRenderer(), "rsc/cardbacks/", "Mecha.png");
-	textureLoader.Load(GetRenderer(), "rsc/cardbacks/", "Singleton.png");
-	textureLoader.Load(GetRenderer(), "rsc/cardbacks/", "Trigger Command.png");
+	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Basic Tower.png");
+	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Command.png");
+	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Mecha Tower.png");
+	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Mecha.png");
+	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Singleton.png");
+	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Trigger Command.png");
 
 	//fonts
 	headerFont = TTF_OpenFont("rsc/fonts/belerensmallcaps-bold-webfont.ttf", 24);
