@@ -37,7 +37,7 @@ Hidden Cache;;Command;If you discard this card, draw three cards.;;
 EMP Blast;;Command;Destroy all Towers (including Mecha Towers).;;
 Sabotage;;Command;Sacrifice a Tower you control. Destroy one target Mecha.;;
 Reparations;;Command;If a Mecha you control is destroyed, destroy one target Mecha.;;
-The Vice;3;Mecha;As long as this unit is in play, each player's maximum hand size is reduced by 2.;4;4
+The Vise;3;Mecha;As long as this unit is in play, each player's maximum hand size is reduced by 2.;4;4
 Rampart;0;Mecha Tower;Provides 1u (1 unit of bandwidth. Play only one Tower card each turn). This Mecha Tower can't move. Adjacent Mechas you control can't be targeted by attacks.;0;2
 Turret;0;Mecha Tower;Provides 1u (1 unit of bandwidth. Play only one Tower card each turn). This Mecha Tower can't move.;4;2
 Engineered Earthquake;;Command;Deal 2 damage to all non-flying Mechas (Armour counters protect against this damage as normal).;;

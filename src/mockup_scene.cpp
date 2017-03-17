@@ -29,13 +29,20 @@
 #include <string>
 
 MockupScene::MockupScene() {
-	//textures
+	//card frame textures
 	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Basic Tower.png");
 	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Command.png");
 	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Mecha Tower.png");
 	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Mecha.png");
 	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Singleton.png");
 	textureLoader.Load(GetRenderer(), "rsc/cardframes/", "Trigger Command.png");
+
+	//card art textures
+	//#Format 3: name;const;type;text;power;durability
+	CSVObject<6> cardCSV = readCSV<6>("rsc/base_set.csv", ';');
+	for (auto& it : cardCSV) {
+		textureLoader.Load(GetRenderer(), "rsc/art/", it[0] + ".png");
+	}
 
 	//fonts
 	headerFont = TTF_OpenFont("rsc/fonts/belerensmallcaps-bold-webfont.ttf", 24);

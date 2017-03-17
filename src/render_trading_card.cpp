@@ -61,44 +61,62 @@ void renderTradingCard(SDL_Renderer* const renderer, TradingCard* card, TTF_Font
 	//singleton
 	TextureLoader& textureLoader = TextureLoader::GetSingleton();
 
-	//background image
-	SDL_Texture* backTexture = nullptr;
+	//card frame image
+	SDL_Texture* frameTexture = nullptr;
 
 	const TradingCardTypes types = card->GetTypes();
 
 	//forget singleton overlay for now
 	if (types.GetBasic() && types.GetTower()) {
-		backTexture = textureLoader.Find("Basic Tower.png");
+		frameTexture = textureLoader.Find("Basic Tower.png");
 	}
 	if (types.GetMecha() && types.GetTower()) {
-		backTexture = textureLoader.Find("Mecha Tower.png");
+		frameTexture = textureLoader.Find("Mecha Tower.png");
 	}
 
 	if (types.GetTrigger() && types.GetCommand()) {
-		backTexture = textureLoader.Find("Trigger Command.png");
+		frameTexture = textureLoader.Find("Trigger Command.png");
 	}
 	if (types.GetCommand() && !types.GetTrigger()) {
-		backTexture = textureLoader.Find("Command.png");
+		frameTexture = textureLoader.Find("Command.png");
 	}
 
 	if (types.GetMecha() && !types.GetTower()) {
-		backTexture = textureLoader.Find("Mecha.png");
+		frameTexture = textureLoader.Find("Mecha.png");
 	}
 
-	if (backTexture == nullptr) {
-		throw(std::runtime_error("Could not find needed textures in renderTradingCard"));
+	if (frameTexture == nullptr) {
+		std::ostringstream msg;
+		msg << "Could not find needed frame textures in renderTradingCard: " << card->GetName();
+		throw(std::runtime_error(msg.str()));
+	}
+
+	//art texture
+	SDL_Texture* artTexture = textureLoader.Find(card->GetName() + ".png");
+	SDL_Rect artDest = {10, 45, 355, 239};
+	if (types.GetBasic()) {
+		artDest.h = 440;
+	}
+
+	if (artTexture == nullptr) {
+		std::ostringstream msg;
+		msg << "Could not find needed art textures in renderTradingCard: " << card->GetName();
+		throw(std::runtime_error(msg.str()));
 	}
 
 	//prep the image for rendering
 	int w = 0, h = 0;
-	SDL_QueryTexture(backTexture, nullptr, nullptr, &w, &h);
+	SDL_QueryTexture(frameTexture, nullptr, nullptr, &w, &h);
 	card->GetImage()->Create(renderer, w, h);
 	SDL_SetRenderTarget(renderer, card->GetImage()->GetTexture());
 
 	//render each component
 
-	//background
-	SDL_RenderCopy(renderer, backTexture, nullptr, nullptr);
+	//art
+	SDL_RenderCopy(renderer, artTexture, nullptr, &artDest);
+
+	//card frame
+	SDL_RenderCopy(renderer, frameTexture, nullptr, nullptr);
 
 	//singleton overlay
 	if (types.GetSingleton()) {
