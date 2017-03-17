@@ -21,6 +21,7 @@
 */
 #include "mockup_scene.hpp"
 
+#include "card_saver.hpp"
 #include "render_text_texture.hpp"
 #include "render_trading_card.hpp"
 
@@ -136,6 +137,12 @@ void MockupScene::KeyDown(SDL_KeyboardEvent const& event) {
 		case SDLK_SPACE:
 			RenderList();
 		break;
+		case SDLK_s:
+			RenderEach();
+		break;
+		case SDLK_a:
+			RenderAll();
+		break;
 	}
 	std::cout << selection << std::endl;
 }
@@ -154,6 +161,10 @@ void MockupScene::WindowResized(SDL_WindowEvent const& event) {
 		renderTradingCard(GetRenderer(), it, headerFont, textFont);
 	}
 }
+
+//-------------------------
+//Render functions
+//-------------------------
 
 void MockupScene::RenderList() {
 	//clear the existing card data
@@ -184,4 +195,14 @@ void MockupScene::RenderList() {
 
 		cardMasterList.Push(floatingCard);
 	}
+}
+
+void MockupScene::RenderEach() {
+	for (TradingCard* it = cardMasterList.Peek(); it; it = it->GetNext()) {
+		saveCard(GetRenderer(), it);
+	}
+}
+
+void MockupScene::RenderAll() {
+	saveCardArray(GetRenderer(), cardMasterList);
 }
