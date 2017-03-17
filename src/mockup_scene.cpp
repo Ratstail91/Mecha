@@ -133,6 +133,7 @@ void MockupScene::KeyDown(SDL_KeyboardEvent const& event) {
 			if (selection > 0) selection--;
 		break;
 		case SDLK_r:
+		case SDLK_SPACE:
 			RenderList();
 		break;
 	}
